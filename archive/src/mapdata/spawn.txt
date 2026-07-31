@@ -1,0 +1,1864 @@
+81;23;0;Spawn
+0;0;Air; ;false
+1;0;Air; ;false
+2;0;Air; ;false
+3;0;Air; ;false
+4;0;Air; ;false
+5;0;Air; ;false
+6;0;Air; ;false
+7;0;Air; ;false
+8;0;Air; ;false
+9;0;Air; ;false
+10;0;Air; ;false
+11;0;Air; ;false
+12;0;Air; ;false
+13;0;Air; ;false
+14;0;Air; ;false
+15;0;Air; ;false
+16;0;Air; ;false
+17;0;Air; ;false
+18;0;Air; ;false
+19;0;Air; ;false
+20;0;Air; ;false
+21;0;Air; ;false
+22;0;Air; ;false
+23;0;Air; ;false
+24;0;Air; ;false
+25;0;Air; ;false
+26;0;Air; ;false
+27;0;Air; ;false
+28;0;Air; ;false
+29;0;Air; ;false
+30;0;Air; ;false
+31;0;Air; ;false
+32;0;Air; ;false
+33;0;Air; ;false
+34;0;Air; ;false
+35;0;Air; ;false
+36;0;Air; ;false
+37;0;Air; ;false
+38;0;Air; ;false
+39;0;Air; ;false
+40;0;Air; ;false
+41;0;Air; ;false
+42;0;Air; ;false
+43;0;Air; ;false
+44;0;Air; ;false
+45;0;Air; ;false
+46;0;Air; ;false
+47;0;Air; ;false
+48;0;Air; ;false
+49;0;Air; ;false
+50;0;Air; ;false
+51;0;Air; ;false
+52;0;Air; ;false
+53;0;Air; ;false
+54;0;Air; ;false
+55;0;Air; ;false
+56;0;Air; ;false
+57;0;Air; ;false
+58;0;Air; ;false
+59;0;Air; ;false
+60;0;Air; ;false
+61;0;Air; ;false
+62;0;Air; ;false
+63;0;Air; ;false
+64;0;Air; ;false
+65;0;Air; ;false
+66;0;Air; ;false
+67;0;Air; ;false
+68;0;Air; ;false
+69;0;Air; ;false
+70;0;Air; ;false
+71;0;Air; ;false
+72;0;Air; ;false
+73;0;Air; ;false
+74;0;Air; ;false
+75;0;Air; ;false
+76;0;Air; ;false
+77;0;Air; ;false
+78;0;Air; ;false
+79;0;Air; ;false
+80;0;Air; ;false
+0;1;Air; ;false
+1;1;Wall;#;true
+2;1;Wall;#;true
+3;1;Wall;#;true
+4;1;Wall;#;true
+5;1;Wall;#;true
+6;1;Wall;#;true
+7;1;Wall;#;true
+8;1;Wall;#;true
+9;1;Wall;#;true
+10;1;Wall;#;true
+11;1;Wall;#;true
+12;1;Wall;#;true
+13;1;Wall;#;true
+14;1;Wall;#;true
+15;1;Wall;#;true
+16;1;Wall;#;true
+17;1;Wall;#;true
+18;1;Wall;#;true
+19;1;Wall;#;true
+20;1;Wall;#;true
+21;1;Wall;#;true
+22;1;Wall;#;true
+23;1;Wall;#;true
+24;1;Wall;#;true
+25;1;Wall;#;true
+26;1;Wall;#;true
+27;1;Wall;#;true
+28;1;Wall;#;true
+29;1;Wall;#;true
+30;1;Wall;#;true
+31;1;Wall;#;true
+32;1;Wall;#;true
+33;1;Wall;#;true
+34;1;Wall;#;true
+35;1;Wall;#;true
+36;1;Wall;#;true
+37;1;Wall;#;true
+38;1;Wall;#;true
+39;1;Wall;#;true
+40;1;Wall;#;true
+41;1;Wall;#;true
+42;1;Wall;#;true
+43;1;Wall;#;true
+44;1;Wall;#;true
+45;1;Wall;#;true
+46;1;Wall;#;true
+47;1;Wall;#;true
+48;1;Wall;#;true
+49;1;Wall;#;true
+50;1;Wall;#;true
+51;1;Wall;#;true
+52;1;Wall;#;true
+53;1;Wall;#;true
+54;1;Wall;#;true
+55;1;Wall;#;true
+56;1;Wall;#;true
+57;1;Wall;#;true
+58;1;Wall;#;true
+59;1;Wall;#;true
+60;1;Wall;#;true
+61;1;Wall;#;true
+62;1;Wall;#;true
+63;1;Wall;#;true
+64;1;Wall;#;true
+65;1;Wall;#;true
+66;1;Wall;#;true
+67;1;Wall;#;true
+68;1;Wall;#;true
+69;1;Wall;#;true
+70;1;Wall;#;true
+71;1;Wall;#;true
+72;1;Wall;#;true
+73;1;Wall;#;true
+74;1;Wall;#;true
+75;1;Wall;#;true
+76;1;Wall;#;true
+77;1;Wall;#;true
+78;1;Wall;#;true
+79;1;Wall;#;true
+80;1;Air; ;false
+0;2;Air; ;false
+1;2;Wall;#;true
+2;2;Air; ;false
+3;2;Air; ;false
+4;2;Air; ;false
+5;2;Air; ;false
+6;2;Air; ;false
+7;2;Air; ;false
+8;2;Air; ;false
+9;2;Air; ;false
+10;2;Air; ;false
+11;2;Air; ;false
+12;2;Air; ;false
+13;2;Air; ;false
+14;2;Air; ;false
+15;2;Air; ;false
+16;2;Air; ;false
+17;2;Air; ;false
+18;2;Air; ;false
+19;2;Air; ;false
+20;2;Air; ;false
+21;2;Air; ;false
+22;2;Air; ;false
+23;2;Air; ;false
+24;2;Air; ;false
+25;2;Air; ;false
+26;2;Air; ;false
+27;2;Air; ;false
+28;2;Air; ;false
+29;2;Air; ;false
+30;2;Air; ;false
+31;2;Air; ;false
+32;2;Air; ;false
+33;2;Air; ;false
+34;2;Air; ;false
+35;2;Air; ;false
+36;2;Air; ;false
+37;2;Air; ;false
+38;2;Air; ;false
+39;2;Air; ;false
+40;2;Air; ;false
+41;2;Air; ;false
+42;2;Air; ;false
+43;2;Air; ;false
+44;2;Air; ;false
+45;2;Air; ;false
+46;2;Air; ;false
+47;2;Air; ;false
+48;2;Air; ;false
+49;2;Air; ;false
+50;2;Air; ;false
+51;2;Air; ;false
+52;2;Air; ;false
+53;2;Air; ;false
+54;2;Air; ;false
+55;2;Air; ;false
+56;2;Air; ;false
+57;2;Air; ;false
+58;2;Air; ;false
+59;2;Air; ;false
+60;2;Air; ;false
+61;2;Air; ;false
+62;2;Air; ;false
+63;2;Air; ;false
+64;2;Air; ;false
+65;2;Air; ;false
+66;2;Air; ;false
+67;2;Air; ;false
+68;2;Air; ;false
+69;2;Air; ;false
+70;2;Air; ;false
+71;2;Air; ;false
+72;2;Air; ;false
+73;2;Air; ;false
+74;2;Air; ;false
+75;2;Air; ;false
+76;2;Air; ;false
+77;2;Air; ;false
+78;2;Air; ;false
+79;2;Wall;#;true
+80;2;Air; ;false
+0;3;Air; ;false
+1;3;Wall;#;true
+2;3;Air; ;false
+3;3;Air; ;false
+4;3;Air; ;false
+5;3;Air; ;false
+6;3;Air; ;false
+7;3;Air; ;false
+8;3;Air; ;false
+9;3;Air; ;false
+10;3;Air; ;false
+11;3;Air; ;false
+12;3;Air; ;false
+13;3;Air; ;false
+14;3;Air; ;false
+15;3;Air; ;false
+16;3;Air; ;false
+17;3;Air; ;false
+18;3;Air; ;false
+19;3;Air; ;false
+20;3;Air; ;false
+21;3;Air; ;false
+22;3;Air; ;false
+23;3;Air; ;false
+24;3;Air; ;false
+25;3;Air; ;false
+26;3;Air; ;false
+27;3;Air; ;false
+28;3;Air; ;false
+29;3;Air; ;false
+30;3;Air; ;false
+31;3;Air; ;false
+32;3;Air; ;false
+33;3;Air; ;false
+34;3;Air; ;false
+35;3;Air; ;false
+36;3;Air; ;false
+37;3;Air; ;false
+38;3;Air; ;false
+39;3;Air; ;false
+40;3;Air; ;false
+41;3;Air; ;false
+42;3;Air; ;false
+43;3;Air; ;false
+44;3;Air; ;false
+45;3;Air; ;false
+46;3;Air; ;false
+47;3;Air; ;false
+48;3;Air; ;false
+49;3;Air; ;false
+50;3;Air; ;false
+51;3;Air; ;false
+52;3;Air; ;false
+53;3;Air; ;false
+54;3;Air; ;false
+55;3;Air; ;false
+56;3;Air; ;false
+57;3;Air; ;false
+58;3;Air; ;false
+59;3;Air; ;false
+60;3;Air; ;false
+61;3;Air; ;false
+62;3;Air; ;false
+63;3;Air; ;false
+64;3;Air; ;false
+65;3;Air; ;false
+66;3;Air; ;false
+67;3;Air; ;false
+68;3;Air; ;false
+69;3;Air; ;false
+70;3;Air; ;false
+71;3;Air; ;false
+72;3;Air; ;false
+73;3;Air; ;false
+74;3;Air; ;false
+75;3;Air; ;false
+76;3;Air; ;false
+77;3;Air; ;false
+78;3;Air; ;false
+79;3;Wall;#;true
+80;3;Air; ;false
+0;4;Air; ;false
+1;4;Wall;#;true
+2;4;Air; ;false
+3;4;Air; ;false
+4;4;Air; ;false
+5;4;Air; ;false
+6;4;Air; ;false
+7;4;Air; ;false
+8;4;Air; ;false
+9;4;Air; ;false
+10;4;Air; ;false
+11;4;Air; ;false
+12;4;Air; ;false
+13;4;Air; ;false
+14;4;Air; ;false
+15;4;Air; ;false
+16;4;Air; ;false
+17;4;Air; ;false
+18;4;Air; ;false
+19;4;Air; ;false
+20;4;Air; ;false
+21;4;Air; ;false
+22;4;Air; ;false
+23;4;Air; ;false
+24;4;Air; ;false
+25;4;Air; ;false
+26;4;Air; ;false
+27;4;Air; ;false
+28;4;Air; ;false
+29;4;Air; ;false
+30;4;Air; ;false
+31;4;Air; ;false
+32;4;Air; ;false
+33;4;Air; ;false
+34;4;Air; ;false
+35;4;Air; ;false
+36;4;Air; ;false
+37;4;Air; ;false
+38;4;Air; ;false
+39;4;Air; ;false
+40;4;Air; ;false
+41;4;Air; ;false
+42;4;Air; ;false
+43;4;Air; ;false
+44;4;Air; ;false
+45;4;Air; ;false
+46;4;Air; ;false
+47;4;Air; ;false
+48;4;Air; ;false
+49;4;Air; ;false
+50;4;Air; ;false
+51;4;Air; ;false
+52;4;Air; ;false
+53;4;Air; ;false
+54;4;Air; ;false
+55;4;Air; ;false
+56;4;Air; ;false
+57;4;Air; ;false
+58;4;Air; ;false
+59;4;Air; ;false
+60;4;Air; ;false
+61;4;Air; ;false
+62;4;Air; ;false
+63;4;Air; ;false
+64;4;Air; ;false
+65;4;Air; ;false
+66;4;Air; ;false
+67;4;Air; ;false
+68;4;Air; ;false
+69;4;Air; ;false
+70;4;Air; ;false
+71;4;Air; ;false
+72;4;Air; ;false
+73;4;Air; ;false
+74;4;Air; ;false
+75;4;Air; ;false
+76;4;Air; ;false
+77;4;Air; ;false
+78;4;Air; ;false
+79;4;Wall;#;true
+80;4;Air; ;false
+0;5;Air; ;false
+1;5;Wall;#;true
+2;5;Air; ;false
+3;5;Air; ;false
+4;5;Air; ;false
+5;5;Air; ;false
+6;5;Air; ;false
+7;5;Air; ;false
+8;5;Air; ;false
+9;5;Air; ;false
+10;5;Air; ;false
+11;5;Air; ;false
+12;5;Air; ;false
+13;5;Air; ;false
+14;5;Air; ;false
+15;5;Air; ;false
+16;5;Air; ;false
+17;5;Air; ;false
+18;5;Air; ;false
+19;5;Air; ;false
+20;5;Air; ;false
+21;5;Air; ;false
+22;5;Air; ;false
+23;5;Air; ;false
+24;5;Air; ;false
+25;5;Air; ;false
+26;5;Air; ;false
+27;5;Air; ;false
+28;5;Air; ;false
+29;5;Air; ;false
+30;5;Air; ;false
+31;5;Air; ;false
+32;5;Air; ;false
+33;5;Air; ;false
+34;5;Air; ;false
+35;5;Air; ;false
+36;5;Air; ;false
+37;5;Air; ;false
+38;5;Air; ;false
+39;5;Air; ;false
+40;5;Air; ;false
+41;5;Air; ;false
+42;5;Air; ;false
+43;5;Air; ;false
+44;5;Air; ;false
+45;5;Air; ;false
+46;5;Air; ;false
+47;5;Air; ;false
+48;5;Air; ;false
+49;5;Air; ;false
+50;5;Air; ;false
+51;5;Air; ;false
+52;5;Air; ;false
+53;5;Air; ;false
+54;5;Air; ;false
+55;5;Air; ;false
+56;5;Air; ;false
+57;5;Air; ;false
+58;5;Air; ;false
+59;5;Air; ;false
+60;5;Air; ;false
+61;5;Air; ;false
+62;5;Air; ;false
+63;5;Air; ;false
+64;5;Air; ;false
+65;5;Air; ;false
+66;5;Air; ;false
+67;5;Air; ;false
+68;5;Air; ;false
+69;5;Air; ;false
+70;5;Air; ;false
+71;5;Air; ;false
+72;5;Air; ;false
+73;5;Air; ;false
+74;5;Air; ;false
+75;5;Air; ;false
+76;5;Air; ;false
+77;5;Air; ;false
+78;5;Air; ;false
+79;5;Wall;#;true
+80;5;Air; ;false
+0;6;Air; ;false
+1;6;Wall;#;true
+2;6;Air; ;false
+3;6;Air; ;false
+4;6;Air; ;false
+5;6;Air; ;false
+6;6;Air; ;false
+7;6;Air; ;false
+8;6;Air; ;false
+9;6;Air; ;false
+10;6;Air; ;false
+11;6;Air; ;false
+12;6;Air; ;false
+13;6;Air; ;false
+14;6;Air; ;false
+15;6;Air; ;false
+16;6;Air; ;false
+17;6;Air; ;false
+18;6;Air; ;false
+19;6;Air; ;false
+20;6;Air; ;false
+21;6;Air; ;false
+22;6;Air; ;false
+23;6;Air; ;false
+24;6;Air; ;false
+25;6;Air; ;false
+26;6;Air; ;false
+27;6;Air; ;false
+28;6;Air; ;false
+29;6;Air; ;false
+30;6;Air; ;false
+31;6;Air; ;false
+32;6;Air; ;false
+33;6;Air; ;false
+34;6;Air; ;false
+35;6;Air; ;false
+36;6;Air; ;false
+37;6;Air; ;false
+38;6;Air; ;false
+39;6;Enemy;X;false;1;Zombie
+40;6;Air; ;false
+41;6;Air; ;false
+42;6;Air; ;false
+43;6;Air; ;false
+44;6;Air; ;false
+45;6;Air; ;false
+46;6;Air; ;false
+47;6;Air; ;false
+48;6;Air; ;false
+49;6;Air; ;false
+50;6;Air; ;false
+51;6;Air; ;false
+52;6;Air; ;false
+53;6;Air; ;false
+54;6;Air; ;false
+55;6;Air; ;false
+56;6;Air; ;false
+57;6;Air; ;false
+58;6;Air; ;false
+59;6;Air; ;false
+60;6;Air; ;false
+61;6;Air; ;false
+62;6;Air; ;false
+63;6;Air; ;false
+64;6;Air; ;false
+65;6;Air; ;false
+66;6;Air; ;false
+67;6;Air; ;false
+68;6;Air; ;false
+69;6;Air; ;false
+70;6;Air; ;false
+71;6;Air; ;false
+72;6;Air; ;false
+73;6;Air; ;false
+74;6;Air; ;false
+75;6;Air; ;false
+76;6;Air; ;false
+77;6;Air; ;false
+78;6;Air; ;false
+79;6;Wall;#;true
+80;6;Air; ;false
+0;7;Air; ;false
+1;7;Wall;#;true
+2;7;Air; ;false
+3;7;Air; ;false
+4;7;Air; ;false
+5;7;Air; ;false
+6;7;Air; ;false
+7;7;Air; ;false
+8;7;Air; ;false
+9;7;Air; ;false
+10;7;Air; ;false
+11;7;Air; ;false
+12;7;Air; ;false
+13;7;Air; ;false
+14;7;Air; ;false
+15;7;Air; ;false
+16;7;Air; ;false
+17;7;Air; ;false
+18;7;Air; ;false
+19;7;Air; ;false
+20;7;Air; ;false
+21;7;Air; ;false
+22;7;Air; ;false
+23;7;Air; ;false
+24;7;Air; ;false
+25;7;Air; ;false
+26;7;Air; ;false
+27;7;Air; ;false
+28;7;Air; ;false
+29;7;Air; ;false
+30;7;Air; ;false
+31;7;Wall;#;true
+32;7;Wall;#;true
+33;7;Wall;#;true
+34;7;Wall;#;true
+35;7;Wall;#;true
+36;7;Wall;#;true
+37;7;Wall;#;true
+38;7;Door;|;true;false
+39;7;Wall;#;true
+40;7;Wall;#;true
+41;7;Wall;#;true
+42;7;Wall;#;true
+43;7;Wall;#;true
+44;7;Wall;#;true
+45;7;Wall;#;true
+46;7;Air; ;false
+47;7;Wall;#;true
+48;7;Wall;#;true
+49;7;Wall;#;true
+50;7;Wall;#;true
+51;7;Air; ;false
+52;7;Air; ;false
+53;7;Air; ;false
+54;7;Air; ;false
+55;7;Air; ;false
+56;7;Air; ;false
+57;7;Air; ;false
+58;7;Air; ;false
+59;7;Air; ;false
+60;7;Air; ;false
+61;7;Air; ;false
+62;7;Air; ;false
+63;7;Air; ;false
+64;7;Air; ;false
+65;7;Air; ;false
+66;7;Air; ;false
+67;7;Air; ;false
+68;7;Air; ;false
+69;7;Air; ;false
+70;7;Air; ;false
+71;7;Air; ;false
+72;7;Air; ;false
+73;7;Air; ;false
+74;7;Air; ;false
+75;7;Air; ;false
+76;7;Air; ;false
+77;7;Air; ;false
+78;7;Air; ;false
+79;7;Wall;#;true
+80;7;Air; ;false
+0;8;Air; ;false
+1;8;Wall;#;true
+2;8;Air; ;false
+3;8;Air; ;false
+4;8;Air; ;false
+5;8;Air; ;false
+6;8;Air; ;false
+7;8;Air; ;false
+8;8;Air; ;false
+9;8;Air; ;false
+10;8;Air; ;false
+11;8;Air; ;false
+12;8;Air; ;false
+13;8;Air; ;false
+14;8;Air; ;false
+15;8;Air; ;false
+16;8;Air; ;false
+17;8;Air; ;false
+18;8;Air; ;false
+19;8;Air; ;false
+20;8;Air; ;false
+21;8;Air; ;false
+22;8;Air; ;false
+23;8;Air; ;false
+24;8;Air; ;false
+25;8;Air; ;false
+26;8;Air; ;false
+27;8;Air; ;false
+28;8;Air; ;false
+29;8;Air; ;false
+30;8;Air; ;false
+31;8;Wall;#;true
+32;8;Air; ;false
+33;8;Air; ;false
+34;8;Air; ;false
+35;8;Air; ;false
+36;8;Air; ;false
+37;8;Air; ;false
+38;8;Air; ;false
+39;8;Air; ;false
+40;8;Air; ;false
+41;8;Air; ;false
+42;8;Air; ;false
+43;8;Air; ;false
+44;8;Air; ;false
+45;8;Wall;#;true
+46;8;Air; ;false
+47;8;Air; ;false
+48;8;Air; ;false
+49;8;Air; ;false
+50;8;Wall;#;true
+51;8;Air; ;false
+52;8;Air; ;false
+53;8;Air; ;false
+54;8;Air; ;false
+55;8;Air; ;false
+56;8;Air; ;false
+57;8;Air; ;false
+58;8;Air; ;false
+59;8;Air; ;false
+60;8;Air; ;false
+61;8;Air; ;false
+62;8;Air; ;false
+63;8;Air; ;false
+64;8;Air; ;false
+65;8;Air; ;false
+66;8;Air; ;false
+67;8;Air; ;false
+68;8;Air; ;false
+69;8;Air; ;false
+70;8;Air; ;false
+71;8;Air; ;false
+72;8;Air; ;false
+73;8;Air; ;false
+74;8;Air; ;false
+75;8;Air; ;false
+76;8;Air; ;false
+77;8;Air; ;false
+78;8;Air; ;false
+79;8;Wall;#;true
+80;8;Air; ;false
+0;9;Air; ;false
+1;9;Wall;#;true
+2;9;Air; ;false
+3;9;Air; ;false
+4;9;Air; ;false
+5;9;Air; ;false
+6;9;Air; ;false
+7;9;Air; ;false
+8;9;Air; ;false
+9;9;Air; ;false
+10;9;Air; ;false
+11;9;Air; ;false
+12;9;Air; ;false
+13;9;Air; ;false
+14;9;Air; ;false
+15;9;Air; ;false
+16;9;Air; ;false
+17;9;Air; ;false
+18;9;Air; ;false
+19;9;Air; ;false
+20;9;Air; ;false
+21;9;Air; ;false
+22;9;Air; ;false
+23;9;Air; ;false
+24;9;Air; ;false
+25;9;Air; ;false
+26;9;Air; ;false
+27;9;Air; ;false
+28;9;Air; ;false
+29;9;Air; ;false
+30;9;Air; ;false
+31;9;Wall;#;true
+32;9;Air; ;false
+33;9;Air; ;false
+34;9;Air; ;false
+35;9;Air; ;false
+36;9;Air; ;false
+37;9;Air; ;false
+38;9;Air; ;false
+39;9;Air; ;false
+40;9;Air; ;false
+41;9;Air; ;false
+42;9;Air; ;false
+43;9;Air; ;false
+44;9;Air; ;false
+45;9;Wall;#;true
+46;9;Air; ;false
+47;9;Air; ;false
+48;9;Air; ;false
+49;9;Air; ;false
+50;9;Air; ;false
+51;9;Air; ;false
+52;9;Air; ;false
+53;9;Air; ;false
+54;9;Air; ;false
+55;9;Air; ;false
+56;9;Air; ;false
+57;9;Air; ;false
+58;9;Air; ;false
+59;9;Air; ;false
+60;9;Air; ;false
+61;9;Air; ;false
+62;9;Air; ;false
+63;9;Air; ;false
+64;9;Air; ;false
+65;9;Air; ;false
+66;9;Air; ;false
+67;9;Air; ;false
+68;9;Air; ;false
+69;9;Air; ;false
+70;9;Air; ;false
+71;9;Air; ;false
+72;9;Air; ;false
+73;9;Air; ;false
+74;9;Air; ;false
+75;9;Air; ;false
+76;9;Air; ;false
+77;9;Air; ;false
+78;9;Air; ;false
+79;9;Wall;#;true
+80;9;Air; ;false
+0;10;Air; ;false
+1;10;Wall;#;true
+2;10;Air; ;false
+3;10;Air; ;false
+4;10;Air; ;false
+5;10;Air; ;false
+6;10;Air; ;false
+7;10;Air; ;false
+8;10;Air; ;false
+9;10;Air; ;false
+10;10;Air; ;false
+11;10;Air; ;false
+12;10;Air; ;false
+13;10;Air; ;false
+14;10;Air; ;false
+15;10;Air; ;false
+16;10;Air; ;false
+17;10;Air; ;false
+18;10;Air; ;false
+19;10;Air; ;false
+20;10;Air; ;false
+21;10;Air; ;false
+22;10;Air; ;false
+23;10;Air; ;false
+24;10;Air; ;false
+25;10;Air; ;false
+26;10;Air; ;false
+27;10;Air; ;false
+28;10;Air; ;false
+29;10;Air; ;false
+30;10;Air; ;false
+31;10;Wall;#;true
+32;10;Air; ;false
+33;10;Air; ;false
+34;10;Air; ;false
+35;10;Air; ;false
+36;10;Air; ;false
+37;10;Air; ;false
+38;10;Air; ;false
+39;10;Air; ;false
+40;10;Air; ;false
+41;10;Air; ;false
+42;10;Air; ;false
+43;10;Air; ;false
+44;10;Air; ;false
+45;10;Wall;#;true
+46;10;Air; ;false
+47;10;Air; ;false
+48;10;Air; ;false
+49;10;Air; ;false
+50;10;Wall;#;true
+51;10;Air; ;false
+52;10;Air; ;false
+53;10;Air; ;false
+54;10;Air; ;false
+55;10;Air; ;false
+56;10;Air; ;false
+57;10;Air; ;false
+58;10;Air; ;false
+59;10;Air; ;false
+60;10;Air; ;false
+61;10;Air; ;false
+62;10;Air; ;false
+63;10;Air; ;false
+64;10;Air; ;false
+65;10;Air; ;false
+66;10;Air; ;false
+67;10;Air; ;false
+68;10;Air; ;false
+69;10;Air; ;false
+70;10;Air; ;false
+71;10;Air; ;false
+72;10;Air; ;false
+73;10;Air; ;false
+74;10;Air; ;false
+75;10;Air; ;false
+76;10;Air; ;false
+77;10;Air; ;false
+78;10;Air; ;false
+79;10;Wall;#;true
+80;10;Air; ;false
+0;11;Air; ;false
+1;11;Wall;#;true
+2;11;Air; ;false
+3;11;Air; ;false
+4;11;Air; ;false
+5;11;Air; ;false
+6;11;Air; ;false
+7;11;Air; ;false
+8;11;Air; ;false
+9;11;Air; ;false
+10;11;Air; ;false
+11;11;Air; ;false
+12;11;Air; ;false
+13;11;Air; ;false
+14;11;Air; ;false
+15;11;Air; ;false
+16;11;Air; ;false
+17;11;Air; ;false
+18;11;Air; ;false
+19;11;Air; ;false
+20;11;Air; ;false
+21;11;Air; ;false
+22;11;Air; ;false
+23;11;Air; ;false
+24;11;Air; ;false
+25;11;Air; ;false
+26;11;Air; ;false
+27;11;Air; ;false
+28;11;Air; ;false
+29;11;Air; ;false
+30;11;Air; ;false
+31;11;Wall;#;true
+32;11;Air; ;false
+33;11;Air; ;false
+34;11;Air; ;false
+35;11;Air; ;false
+36;11;Air; ;false
+37;11;Air; ;false
+38;11;Air; ;false
+39;11;Air; ;false
+40;11;Air; ;false
+41;11;Air; ;false
+42;11;Air; ;false
+43;11;Air; ;false
+44;11;Air; ;false
+45;11;Door;|;true;false
+46;11;Air; ;false
+47;11;Air; ;false
+48;11;Air; ;false
+49;11;Air; ;false
+50;11;Wall;#;true
+51;11;Air; ;false
+52;11;Air; ;false
+53;11;Air; ;false
+54;11;Air; ;false
+55;11;Air; ;false
+56;11;Air; ;false
+57;11;Air; ;false
+58;11;Air; ;false
+59;11;Air; ;false
+60;11;Air; ;false
+61;11;Air; ;false
+62;11;Air; ;false
+63;11;Air; ;false
+64;11;Air; ;false
+65;11;Air; ;false
+66;11;Air; ;false
+67;11;Air; ;false
+68;11;Air; ;false
+69;11;Air; ;false
+70;11;Air; ;false
+71;11;Air; ;false
+72;11;Air; ;false
+73;11;Air; ;false
+74;11;Air; ;false
+75;11;Air; ;false
+76;11;Air; ;false
+77;11;Air; ;false
+78;11;Air; ;false
+79;11;Wall;#;true
+80;11;Air; ;false
+0;12;Air; ;false
+1;12;Wall;#;true
+2;12;Air; ;false
+3;12;Air; ;false
+4;12;Air; ;false
+5;12;Air; ;false
+6;12;Air; ;false
+7;12;Air; ;false
+8;12;Air; ;false
+9;12;Air; ;false
+10;12;Air; ;false
+11;12;Air; ;false
+12;12;Air; ;false
+13;12;Air; ;false
+14;12;Air; ;false
+15;12;Air; ;false
+16;12;Air; ;false
+17;12;Air; ;false
+18;12;Air; ;false
+19;12;Air; ;false
+20;12;Air; ;false
+21;12;Air; ;false
+22;12;Air; ;false
+23;12;Air; ;false
+24;12;Air; ;false
+25;12;Air; ;false
+26;12;Air; ;false
+27;12;Air; ;false
+28;12;Air; ;false
+29;12;Air; ;false
+30;12;Air; ;false
+31;12;Wall;#;true
+32;12;Air; ;false
+33;12;Air; ;false
+34;12;Air; ;false
+35;12;Air; ;false
+36;12;Air; ;false
+37;12;Air; ;false
+38;12;Air; ;false
+39;12;Air; ;false
+40;12;Air; ;false
+41;12;Air; ;false
+42;12;Air; ;false
+43;12;Air; ;false
+44;12;Air; ;false
+45;12;Wall;#;true
+46;12;Wall;#;true
+47;12;Wall;#;true
+48;12;Wall;#;true
+49;12;Wall;#;true
+50;12;Wall;#;true
+51;12;Air; ;false
+52;12;Air; ;false
+53;12;Air; ;false
+54;12;Air; ;false
+55;12;Air; ;false
+56;12;Air; ;false
+57;12;Air; ;false
+58;12;Air; ;false
+59;12;Air; ;false
+60;12;Air; ;false
+61;12;Air; ;false
+62;12;Air; ;false
+63;12;Air; ;false
+64;12;Air; ;false
+65;12;Air; ;false
+66;12;Air; ;false
+67;12;Air; ;false
+68;12;Air; ;false
+69;12;Air; ;false
+70;12;Air; ;false
+71;12;Air; ;false
+72;12;Air; ;false
+73;12;Air; ;false
+74;12;Air; ;false
+75;12;Air; ;false
+76;12;Air; ;false
+77;12;Air; ;false
+78;12;Air; ;false
+79;12;Wall;#;true
+80;12;Air; ;false
+0;13;Air; ;false
+1;13;Wall;#;true
+2;13;Air; ;false
+3;13;Air; ;false
+4;13;Air; ;false
+5;13;Air; ;false
+6;13;Air; ;false
+7;13;Air; ;false
+8;13;Air; ;false
+9;13;Air; ;false
+10;13;Air; ;false
+11;13;Air; ;false
+12;13;Air; ;false
+13;13;Air; ;false
+14;13;Air; ;false
+15;13;Air; ;false
+16;13;Air; ;false
+17;13;Air; ;false
+18;13;Air; ;false
+19;13;Air; ;false
+20;13;Air; ;false
+21;13;Air; ;false
+22;13;Air; ;false
+23;13;Air; ;false
+24;13;Air; ;false
+25;13;Air; ;false
+26;13;Air; ;false
+27;13;Air; ;false
+28;13;Air; ;false
+29;13;Air; ;false
+30;13;Air; ;false
+31;13;Wall;#;true
+32;13;Air; ;false
+33;13;Air; ;false
+34;13;Air; ;false
+35;13;Air; ;false
+36;13;Air; ;false
+37;13;Air; ;false
+38;13;Air; ;false
+39;13;Air; ;false
+40;13;Air; ;false
+41;13;Air; ;false
+42;13;Air; ;false
+43;13;Air; ;false
+44;13;Air; ;false
+45;13;Wall;#;true
+46;13;Air; ;false
+47;13;Air; ;false
+48;13;Air; ;false
+49;13;Air; ;false
+50;13;Air; ;false
+51;13;Air; ;false
+52;13;Air; ;false
+53;13;Air; ;false
+54;13;Air; ;false
+55;13;Air; ;false
+56;13;Air; ;false
+57;13;Air; ;false
+58;13;Air; ;false
+59;13;Air; ;false
+60;13;Air; ;false
+61;13;Air; ;false
+62;13;Air; ;false
+63;13;Air; ;false
+64;13;Air; ;false
+65;13;Air; ;false
+66;13;Air; ;false
+67;13;Air; ;false
+68;13;Air; ;false
+69;13;Air; ;false
+70;13;Air; ;false
+71;13;Air; ;false
+72;13;Air; ;false
+73;13;Air; ;false
+74;13;Air; ;false
+75;13;Air; ;false
+76;13;Air; ;false
+77;13;Air; ;false
+78;13;Air; ;false
+79;13;Wall;#;true
+80;13;Air; ;false
+0;14;Air; ;false
+1;14;Wall;#;true
+2;14;Air; ;false
+3;14;Air; ;false
+4;14;Air; ;false
+5;14;Air; ;false
+6;14;Air; ;false
+7;14;Air; ;false
+8;14;Air; ;false
+9;14;Air; ;false
+10;14;Air; ;false
+11;14;Air; ;false
+12;14;Air; ;false
+13;14;Air; ;false
+14;14;Air; ;false
+15;14;Air; ;false
+16;14;Air; ;false
+17;14;Air; ;false
+18;14;Air; ;false
+19;14;Air; ;false
+20;14;Air; ;false
+21;14;Air; ;false
+22;14;Air; ;false
+23;14;Air; ;false
+24;14;Air; ;false
+25;14;Air; ;false
+26;14;Air; ;false
+27;14;Air; ;false
+28;14;Air; ;false
+29;14;Air; ;false
+30;14;Air; ;false
+31;14;Wall;#;true
+32;14;Air; ;false
+33;14;Air; ;false
+34;14;Air; ;false
+35;14;Air; ;false
+36;14;Air; ;false
+37;14;Air; ;false
+38;14;Air; ;false
+39;14;Air; ;false
+40;14;Air; ;false
+41;14;Air; ;false
+42;14;Air; ;false
+43;14;Air; ;false
+44;14;Air; ;false
+45;14;Wall;#;true
+46;14;Air; ;false
+47;14;Air; ;false
+48;14;Air; ;false
+49;14;Air; ;false
+50;14;Air; ;false
+51;14;Air; ;false
+52;14;Air; ;false
+53;14;Air; ;false
+54;14;Air; ;false
+55;14;Air; ;false
+56;14;Air; ;false
+57;14;Air; ;false
+58;14;Air; ;false
+59;14;Air; ;false
+60;14;Air; ;false
+61;14;Air; ;false
+62;14;Air; ;false
+63;14;Air; ;false
+64;14;Air; ;false
+65;14;Air; ;false
+66;14;Air; ;false
+67;14;Air; ;false
+68;14;Air; ;false
+69;14;Air; ;false
+70;14;Air; ;false
+71;14;Air; ;false
+72;14;Air; ;false
+73;14;Air; ;false
+74;14;Air; ;false
+75;14;Air; ;false
+76;14;Air; ;false
+77;14;Air; ;false
+78;14;Air; ;false
+79;14;Wall;#;true
+80;14;Air; ;false
+0;15;Air; ;false
+1;15;Wall;#;true
+2;15;Air; ;false
+3;15;Air; ;false
+4;15;Air; ;false
+5;15;Air; ;false
+6;15;Air; ;false
+7;15;Air; ;false
+8;15;Air; ;false
+9;15;Air; ;false
+10;15;Air; ;false
+11;15;Air; ;false
+12;15;Air; ;false
+13;15;Air; ;false
+14;15;Air; ;false
+15;15;Air; ;false
+16;15;Air; ;false
+17;15;Air; ;false
+18;15;Air; ;false
+19;15;Air; ;false
+20;15;Air; ;false
+21;15;Air; ;false
+22;15;Air; ;false
+23;15;Air; ;false
+24;15;Air; ;false
+25;15;Air; ;false
+26;15;Air; ;false
+27;15;Air; ;false
+28;15;Air; ;false
+29;15;Air; ;false
+30;15;Air; ;false
+31;15;Wall;#;true
+32;15;Wall;#;true
+33;15;Wall;#;true
+34;15;Wall;#;true
+35;15;Wall;#;true
+36;15;Wall;#;true
+37;15;Wall;#;true
+38;15;Wall;#;true
+39;15;Wall;#;true
+40;15;Wall;#;true
+41;15;Wall;#;true
+42;15;Wall;#;true
+43;15;Air; ;false
+44;15;Air; ;false
+45;15;Wall;#;true
+46;15;Air; ;false
+47;15;Air; ;false
+48;15;Air; ;false
+49;15;Air; ;false
+50;15;Air; ;false
+51;15;Air; ;false
+52;15;Air; ;false
+53;15;Air; ;false
+54;15;Air; ;false
+55;15;Air; ;false
+56;15;Air; ;false
+57;15;Air; ;false
+58;15;Air; ;false
+59;15;Air; ;false
+60;15;Air; ;false
+61;15;Air; ;false
+62;15;Air; ;false
+63;15;Air; ;false
+64;15;Air; ;false
+65;15;Air; ;false
+66;15;Air; ;false
+67;15;Air; ;false
+68;15;Air; ;false
+69;15;Air; ;false
+70;15;Air; ;false
+71;15;Air; ;false
+72;15;Air; ;false
+73;15;Air; ;false
+74;15;Air; ;false
+75;15;Air; ;false
+76;15;Air; ;false
+77;15;Air; ;false
+78;15;Air; ;false
+79;15;Wall;#;true
+80;15;Air; ;false
+0;16;Air; ;false
+1;16;Wall;#;true
+2;16;Air; ;false
+3;16;Air; ;false
+4;16;Air; ;false
+5;16;Air; ;false
+6;16;Air; ;false
+7;16;Air; ;false
+8;16;Air; ;false
+9;16;Air; ;false
+10;16;Air; ;false
+11;16;Air; ;false
+12;16;Air; ;false
+13;16;Air; ;false
+14;16;Air; ;false
+15;16;Air; ;false
+16;16;Air; ;false
+17;16;Air; ;false
+18;16;Air; ;false
+19;16;Air; ;false
+20;16;Air; ;false
+21;16;Air; ;false
+22;16;Air; ;false
+23;16;Air; ;false
+24;16;Air; ;false
+25;16;Air; ;false
+26;16;Air; ;false
+27;16;Air; ;false
+28;16;Air; ;false
+29;16;Air; ;false
+30;16;Air; ;false
+31;16;Air; ;false
+32;16;Air; ;false
+33;16;Air; ;false
+34;16;Air; ;false
+35;16;Air; ;false
+36;16;Air; ;false
+37;16;Air; ;false
+38;16;Air; ;false
+39;16;Air; ;false
+40;16;Air; ;false
+41;16;Air; ;false
+42;16;Air; ;false
+43;16;Air; ;false
+44;16;Air; ;false
+45;16;Air; ;false
+46;16;Air; ;false
+47;16;Air; ;false
+48;16;Air; ;false
+49;16;Air; ;false
+50;16;Air; ;false
+51;16;Air; ;false
+52;16;Air; ;false
+53;16;Air; ;false
+54;16;Air; ;false
+55;16;Air; ;false
+56;16;Air; ;false
+57;16;Air; ;false
+58;16;Air; ;false
+59;16;Air; ;false
+60;16;Air; ;false
+61;16;Air; ;false
+62;16;Air; ;false
+63;16;Air; ;false
+64;16;Air; ;false
+65;16;Air; ;false
+66;16;Air; ;false
+67;16;Air; ;false
+68;16;Air; ;false
+69;16;Air; ;false
+70;16;Air; ;false
+71;16;Air; ;false
+72;16;Air; ;false
+73;16;Air; ;false
+74;16;Air; ;false
+75;16;Air; ;false
+76;16;Air; ;false
+77;16;Air; ;false
+78;16;Air; ;false
+79;16;Wall;#;true
+80;16;Air; ;false
+0;17;Air; ;false
+1;17;Wall;#;true
+2;17;Air; ;false
+3;17;Air; ;false
+4;17;Air; ;false
+5;17;Air; ;false
+6;17;Air; ;false
+7;17;Air; ;false
+8;17;Air; ;false
+9;17;Air; ;false
+10;17;Air; ;false
+11;17;Air; ;false
+12;17;Air; ;false
+13;17;Air; ;false
+14;17;Air; ;false
+15;17;Air; ;false
+16;17;Air; ;false
+17;17;Air; ;false
+18;17;Air; ;false
+19;17;Air; ;false
+20;17;Air; ;false
+21;17;Air; ;false
+22;17;Air; ;false
+23;17;Air; ;false
+24;17;Air; ;false
+25;17;Air; ;false
+26;17;Air; ;false
+27;17;Air; ;false
+28;17;Air; ;false
+29;17;Air; ;false
+30;17;Air; ;false
+31;17;Air; ;false
+32;17;Air; ;false
+33;17;Air; ;false
+34;17;Air; ;false
+35;17;Air; ;false
+36;17;Air; ;false
+37;17;Air; ;false
+38;17;Air; ;false
+39;17;Air; ;false
+40;17;Air; ;false
+41;17;Air; ;false
+42;17;Air; ;false
+43;17;Air; ;false
+44;17;Air; ;false
+45;17;Air; ;false
+46;17;Air; ;false
+47;17;Air; ;false
+48;17;Air; ;false
+49;17;Air; ;false
+50;17;Air; ;false
+51;17;Air; ;false
+52;17;Air; ;false
+53;17;Air; ;false
+54;17;Air; ;false
+55;17;Air; ;false
+56;17;Air; ;false
+57;17;Air; ;false
+58;17;Air; ;false
+59;17;Air; ;false
+60;17;Air; ;false
+61;17;Air; ;false
+62;17;Air; ;false
+63;17;Air; ;false
+64;17;Air; ;false
+65;17;Air; ;false
+66;17;Air; ;false
+67;17;Air; ;false
+68;17;Air; ;false
+69;17;Air; ;false
+70;17;Air; ;false
+71;17;Air; ;false
+72;17;Air; ;false
+73;17;Air; ;false
+74;17;Air; ;false
+75;17;Air; ;false
+76;17;Air; ;false
+77;17;Air; ;false
+78;17;Air; ;false
+79;17;Wall;#;true
+80;17;Air; ;false
+0;18;Air; ;false
+1;18;Wall;#;true
+2;18;Air; ;false
+3;18;Air; ;false
+4;18;Air; ;false
+5;18;Air; ;false
+6;18;Air; ;false
+7;18;Air; ;false
+8;18;Air; ;false
+9;18;Air; ;false
+10;18;Air; ;false
+11;18;Air; ;false
+12;18;Air; ;false
+13;18;Air; ;false
+14;18;Air; ;false
+15;18;Air; ;false
+16;18;Air; ;false
+17;18;Air; ;false
+18;18;Air; ;false
+19;18;Air; ;false
+20;18;Air; ;false
+21;18;Air; ;false
+22;18;Air; ;false
+23;18;Air; ;false
+24;18;Air; ;false
+25;18;Air; ;false
+26;18;Air; ;false
+27;18;Air; ;false
+28;18;Air; ;false
+29;18;Air; ;false
+30;18;Air; ;false
+31;18;Air; ;false
+32;18;Air; ;false
+33;18;Air; ;false
+34;18;Air; ;false
+35;18;Air; ;false
+36;18;Air; ;false
+37;18;Air; ;false
+38;18;Air; ;false
+39;18;Air; ;false
+40;18;Air; ;false
+41;18;Air; ;false
+42;18;Air; ;false
+43;18;Air; ;false
+44;18;Air; ;false
+45;18;Air; ;false
+46;18;Air; ;false
+47;18;Air; ;false
+48;18;Air; ;false
+49;18;Air; ;false
+50;18;Air; ;false
+51;18;Air; ;false
+52;18;Air; ;false
+53;18;Air; ;false
+54;18;Air; ;false
+55;18;Air; ;false
+56;18;Air; ;false
+57;18;Air; ;false
+58;18;Air; ;false
+59;18;Air; ;false
+60;18;Air; ;false
+61;18;Air; ;false
+62;18;Air; ;false
+63;18;Air; ;false
+64;18;Air; ;false
+65;18;Air; ;false
+66;18;Air; ;false
+67;18;Air; ;false
+68;18;Air; ;false
+69;18;Air; ;false
+70;18;Air; ;false
+71;18;Air; ;false
+72;18;Air; ;false
+73;18;Air; ;false
+74;18;Air; ;false
+75;18;Air; ;false
+76;18;Air; ;false
+77;18;Air; ;false
+78;18;Air; ;false
+79;18;Wall;#;true
+80;18;Air; ;false
+0;19;Air; ;false
+1;19;Wall;#;true
+2;19;Air; ;false
+3;19;Air; ;false
+4;19;Air; ;false
+5;19;Air; ;false
+6;19;Air; ;false
+7;19;Air; ;false
+8;19;Air; ;false
+9;19;Air; ;false
+10;19;Air; ;false
+11;19;Air; ;false
+12;19;Air; ;false
+13;19;Air; ;false
+14;19;Air; ;false
+15;19;Air; ;false
+16;19;Air; ;false
+17;19;Air; ;false
+18;19;Air; ;false
+19;19;Air; ;false
+20;19;Air; ;false
+21;19;Air; ;false
+22;19;Air; ;false
+23;19;Air; ;false
+24;19;Air; ;false
+25;19;Air; ;false
+26;19;Air; ;false
+27;19;Air; ;false
+28;19;Air; ;false
+29;19;Air; ;false
+30;19;Air; ;false
+31;19;Air; ;false
+32;19;Air; ;false
+33;19;Air; ;false
+34;19;Air; ;false
+35;19;Air; ;false
+36;19;Air; ;false
+37;19;Air; ;false
+38;19;Air; ;false
+39;19;Air; ;false
+40;19;Air; ;false
+41;19;Air; ;false
+42;19;Air; ;false
+43;19;Air; ;false
+44;19;Air; ;false
+45;19;Air; ;false
+46;19;Air; ;false
+47;19;Air; ;false
+48;19;Air; ;false
+49;19;Air; ;false
+50;19;Air; ;false
+51;19;Air; ;false
+52;19;Air; ;false
+53;19;Air; ;false
+54;19;Air; ;false
+55;19;Air; ;false
+56;19;Air; ;false
+57;19;Air; ;false
+58;19;Air; ;false
+59;19;Air; ;false
+60;19;Air; ;false
+61;19;Air; ;false
+62;19;Air; ;false
+63;19;Air; ;false
+64;19;Air; ;false
+65;19;Air; ;false
+66;19;Air; ;false
+67;19;Air; ;false
+68;19;Air; ;false
+69;19;Air; ;false
+70;19;Air; ;false
+71;19;Air; ;false
+72;19;Air; ;false
+73;19;Air; ;false
+74;19;Air; ;false
+75;19;Air; ;false
+76;19;Air; ;false
+77;19;Air; ;false
+78;19;Air; ;false
+79;19;Wall;#;true
+80;19;Air; ;false
+0;20;Air; ;false
+1;20;Wall;#;true
+2;20;Air; ;false
+3;20;Air; ;false
+4;20;Air; ;false
+5;20;Air; ;false
+6;20;Air; ;false
+7;20;Air; ;false
+8;20;Air; ;false
+9;20;Air; ;false
+10;20;Air; ;false
+11;20;Air; ;false
+12;20;Air; ;false
+13;20;Air; ;false
+14;20;Air; ;false
+15;20;Air; ;false
+16;20;Air; ;false
+17;20;Air; ;false
+18;20;Air; ;false
+19;20;Air; ;false
+20;20;Air; ;false
+21;20;Air; ;false
+22;20;Air; ;false
+23;20;Air; ;false
+24;20;Air; ;false
+25;20;Air; ;false
+26;20;Air; ;false
+27;20;Air; ;false
+28;20;Air; ;false
+29;20;Air; ;false
+30;20;Air; ;false
+31;20;Air; ;false
+32;20;Air; ;false
+33;20;Air; ;false
+34;20;Air; ;false
+35;20;Air; ;false
+36;20;Air; ;false
+37;20;Air; ;false
+38;20;Air; ;false
+39;20;Air; ;false
+40;20;Air; ;false
+41;20;Air; ;false
+42;20;Air; ;false
+43;20;Air; ;false
+44;20;Air; ;false
+45;20;Air; ;false
+46;20;Air; ;false
+47;20;Air; ;false
+48;20;Air; ;false
+49;20;Air; ;false
+50;20;Air; ;false
+51;20;Air; ;false
+52;20;Air; ;false
+53;20;Air; ;false
+54;20;Air; ;false
+55;20;Air; ;false
+56;20;Air; ;false
+57;20;Air; ;false
+58;20;Air; ;false
+59;20;Air; ;false
+60;20;Air; ;false
+61;20;Air; ;false
+62;20;Air; ;false
+63;20;Air; ;false
+64;20;Air; ;false
+65;20;Air; ;false
+66;20;Air; ;false
+67;20;Air; ;false
+68;20;Air; ;false
+69;20;Air; ;false
+70;20;Air; ;false
+71;20;Air; ;false
+72;20;Air; ;false
+73;20;Air; ;false
+74;20;Air; ;false
+75;20;Air; ;false
+76;20;Air; ;false
+77;20;Air; ;false
+78;20;Air; ;false
+79;20;Wall;#;true
+80;20;Air; ;false
+0;21;Air; ;false
+1;21;Wall;#;true
+2;21;Wall;#;true
+3;21;Wall;#;true
+4;21;Wall;#;true
+5;21;Wall;#;true
+6;21;Wall;#;true
+7;21;Wall;#;true
+8;21;Wall;#;true
+9;21;Wall;#;true
+10;21;Wall;#;true
+11;21;Wall;#;true
+12;21;Wall;#;true
+13;21;Wall;#;true
+14;21;Wall;#;true
+15;21;Wall;#;true
+16;21;Wall;#;true
+17;21;Wall;#;true
+18;21;Wall;#;true
+19;21;Wall;#;true
+20;21;Wall;#;true
+21;21;Wall;#;true
+22;21;Wall;#;true
+23;21;Wall;#;true
+24;21;Wall;#;true
+25;21;Wall;#;true
+26;21;Wall;#;true
+27;21;Wall;#;true
+28;21;Wall;#;true
+29;21;Wall;#;true
+30;21;Wall;#;true
+31;21;Wall;#;true
+32;21;Wall;#;true
+33;21;Wall;#;true
+34;21;Wall;#;true
+35;21;Wall;#;true
+36;21;Wall;#;true
+37;21;Wall;#;true
+38;21;Wall;#;true
+39;21;Wall;#;true
+40;21;Wall;#;true
+41;21;Wall;#;true
+42;21;Wall;#;true
+43;21;Wall;#;true
+44;21;Wall;#;true
+45;21;Wall;#;true
+46;21;Wall;#;true
+47;21;Wall;#;true
+48;21;Wall;#;true
+49;21;Wall;#;true
+50;21;Wall;#;true
+51;21;Wall;#;true
+52;21;Wall;#;true
+53;21;Wall;#;true
+54;21;Wall;#;true
+55;21;Wall;#;true
+56;21;Wall;#;true
+57;21;Wall;#;true
+58;21;Wall;#;true
+59;21;Wall;#;true
+60;21;Wall;#;true
+61;21;Wall;#;true
+62;21;Wall;#;true
+63;21;Wall;#;true
+64;21;Wall;#;true
+65;21;Wall;#;true
+66;21;Wall;#;true
+67;21;Wall;#;true
+68;21;Wall;#;true
+69;21;Wall;#;true
+70;21;Wall;#;true
+71;21;Wall;#;true
+72;21;Wall;#;true
+73;21;Wall;#;true
+74;21;Wall;#;true
+75;21;Wall;#;true
+76;21;Wall;#;true
+77;21;Wall;#;true
+78;21;Wall;#;true
+79;21;Wall;#;true
+80;21;Air; ;false
+0;22;Air; ;false
+1;22;Air; ;false
+2;22;Air; ;false
+3;22;Air; ;false
+4;22;Air; ;false
+5;22;Air; ;false
+6;22;Air; ;false
+7;22;Air; ;false
+8;22;Air; ;false
+9;22;Air; ;false
+10;22;Air; ;false
+11;22;Air; ;false
+12;22;Air; ;false
+13;22;Air; ;false
+14;22;Air; ;false
+15;22;Air; ;false
+16;22;Air; ;false
+17;22;Air; ;false
+18;22;Air; ;false
+19;22;Air; ;false
+20;22;Air; ;false
+21;22;Air; ;false
+22;22;Air; ;false
+23;22;Air; ;false
+24;22;Air; ;false
+25;22;Air; ;false
+26;22;Air; ;false
+27;22;Air; ;false
+28;22;Air; ;false
+29;22;Air; ;false
+30;22;Air; ;false
+31;22;Air; ;false
+32;22;Air; ;false
+33;22;Air; ;false
+34;22;Air; ;false
+35;22;Air; ;false
+36;22;Air; ;false
+37;22;Air; ;false
+38;22;Air; ;false
+39;22;Air; ;false
+40;22;Air; ;false
+41;22;Air; ;false
+42;22;Air; ;false
+43;22;Air; ;false
+44;22;Air; ;false
+45;22;Air; ;false
+46;22;Air; ;false
+47;22;Air; ;false
+48;22;Air; ;false
+49;22;Air; ;false
+50;22;Air; ;false
+51;22;Air; ;false
+52;22;Air; ;false
+53;22;Air; ;false
+54;22;Air; ;false
+55;22;Air; ;false
+56;22;Air; ;false
+57;22;Air; ;false
+58;22;Air; ;false
+59;22;Air; ;false
+60;22;Air; ;false
+61;22;Air; ;false
+62;22;Air; ;false
+63;22;Air; ;false
+64;22;Air; ;false
+65;22;Air; ;false
+66;22;Air; ;false
+67;22;Air; ;false
+68;22;Air; ;false
+69;22;Air; ;false
+70;22;Air; ;false
+71;22;Air; ;false
+72;22;Air; ;false
+73;22;Air; ;false
+74;22;Air; ;false
+75;22;Air; ;false
+76;22;Air; ;false
+77;22;Air; ;false
+78;22;Air; ;false
+79;22;Air; ;false
+80;22;Air; ;falsee
