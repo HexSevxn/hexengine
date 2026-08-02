@@ -1,4 +1,7 @@
-use crate::engine::ecs::{query::{Query, QueryMut}, Component, Entity, SparseSet};
+use crate::engine::ecs::{
+    Component, Entity, SparseSet,
+    query::{Query, QueryMut},
+};
 use std::{
     any::{Any, TypeId},
     collections::HashMap,
@@ -40,8 +43,13 @@ impl World {
             .and_then(|s| s.downcast_mut())
     }
 
-    pub fn get_entity_component<T: Component + 'static>(&mut self, entity: Entity) -> Option<&mut T> {
-        self.get_component_set_mut::<T>().expect("Attempted to fetch unregistered component").get_mut(entity)
+    pub fn get_entity_component<T: Component + 'static>(
+        &mut self,
+        entity: Entity,
+    ) -> Option<&mut T> {
+        self.get_component_set_mut::<T>()
+            .expect("Attempted to fetch unregistered component")
+            .get_mut(entity)
     }
 
     pub fn new_entity(&mut self) -> Entity {
@@ -75,7 +83,16 @@ impl World {
     pub fn query_mut<'a, Q>(&'a mut self) -> Q::Iter
     where
         Q: QueryMut<'a>,
-        {
-            Q::fetch(self)
+    {
+        Q::fetch(self)
+    }
+}
+
+impl Default for World {
+    fn default() -> Self {
+        World {
+            entity_count: 0,
+            component_storage: HashMap::new(),
         }
+    }
 }

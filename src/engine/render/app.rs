@@ -1,6 +1,7 @@
+use std::f32::consts::PI;
 use std::sync::Arc;
 
-use glam::{Vec2, Vec4, vec2};
+use glam::{Vec2, Vec3, Vec4, vec2};
 use winit::application::ApplicationHandler;
 use winit::dpi::LogicalSize;
 use winit::event::{KeyEvent, WindowEvent};
@@ -8,91 +9,294 @@ use winit::event_loop::ActiveEventLoop;
 use winit::keyboard::PhysicalKey;
 use winit::window::{Window, WindowId};
 
-use crate::engine::asset::{Asset, AssetManager, Circle, Line, Object, Rectangle};
+use crate::engine::ecs::world::World;
+use crate::engine::game::{Geometry, GeometryType, Renderable, Transformation};
+use crate::engine::render::color::Color;
 use crate::engine::render::wgpu_ctx::WgpuCtx;
-use crate::engine::render::{Triangle, Vertex};
+use crate::engine::render::{Triangle, TriangleColorMap};
 
-#[derive(Default)]
+#[derive(Default, Debug)]
 pub struct App<'window> {
     window: Option<Arc<Window>>,
     wgpu_ctx: Option<WgpuCtx<'window>>,
     pub display_size: Vec2,
-    pub asset_manager: Option<AssetManager>,
+    pub world: World,
 }
 
 impl<'window> App<'window> {
+    //RENDER SYSTEM UPDATE
+    pub fn render_step(&mut self) {
+        let ctx = self
+            .wgpu_ctx
+            .as_mut()
+            .expect("Render step error getting WGPU_CTX");
+        let render_query = self
+            .world
+            .query::<(&Renderable, &Geometry, &Transformation)>();
+
+        ctx.tri_object_store.clear();
+
+        for (render_data, geometry, transform) in render_query {
+            if !render_data.visible {
+                continue;
+            }
+            let triangle = geometry
+                .vertices
+                .first()
+                .expect("No triangle found in geometry.");
+
+            ctx.tri_object_store.push(Triangle {
+                position: transform.position.into(),
+                rotation: transform.rotation,
+                _pad: 0.0,
+                v0: triangle.v0,
+                v1: triangle.v1,
+                v2: triangle.v2,
+                c0: triangle.c0,
+                c1: triangle.c1,
+                c2: triangle.c2,
+            })
+        }
+        ctx.sync_tri_instances();
+        ctx.draw();
+
+        print!("{:#?}", self);
+    }
+
     // Draws a rectangle at position with given width, height, and color. position is pixel based and converted to proper proportion
     pub fn draw_rectangle(&mut self, position: Vec2, width: f32, height: f32, color: Vec4) {
         let display_size = self.display_size.clone();
+        let color_map = TriangleColorMap::flat(color);
 
         let scaled_position = scale_to_screen(display_size, position);
         let scaled_components = scale_pixel(display_size, vec2(width, height));
 
-        self.push_asset(Rectangle {
-            position: scaled_position,
-            width: scaled_components.x,
-            height: scaled_components.y,
-            color,
-        });
+        let midpoint = vec2(position.x + (width / 2.0), position.y + (height / 2.0));
+        let v0 = scaled_position - midpoint;
+        let v1 = vec2(scaled_position.x + scaled_components.x, scaled_position.y) - midpoint;
+        let v2 = vec2(scaled_position.x, scaled_position.y + scaled_components.y) - midpoint;
+        let v3 = vec2(
+            scaled_position.x + scaled_components.x,
+            scaled_position.y + scaled_components.y,
+        ) - midpoint;
+
+        let t1 = Triangle::new(v0, v2, v1, color_map);
+        let t2 = Triangle::new(v1, v2, v3, color_map);
+
+        let rectangle = self.world.new_entity();
+        let transform = Transformation {
+            position: midpoint,
+            velocity: Vec2::ZERO,
+            rotation: 0.0_f32,
+        };
+        self.world.add_component_to_entity(
+            rectangle,
+            Geometry {
+                geometry_type: GeometryType::Triangle,
+                vertices: vec![t1, t2],
+            },
+        );
+        self.world.add_component_to_entity(rectangle, transform);
+        self.world.add_component_to_entity(
+            rectangle,
+            Renderable {
+                color: TriangleColorMap::flat(color),
+                visible: true,
+            },
+        );
     }
 
     //Draws a line between two given points, with a pixel width and color
-    pub fn draw_line(&mut self, p1: Vec2, p2: Vec2, width: f32, color: Vec4) {
+    pub fn draw_line(&mut self, start: Vec2, end: Vec2, width: f32, color: Vec4) {
         let screen_size = self.display_size.clone();
+        let midpoint = start.midpoint(end);
+        let color_map = TriangleColorMap::flat(color);
 
         let size = vec2(width, width);
         let half_size = vec2(size.x / screen_size.x, size.y / screen_size.y) / 2.0;
 
-        self.push_asset(Line {
-            start: p1,
-            end: p2,
-            color: color,
-            size: half_size,
-        });
-    }
+        let (dy, dx) = (end.y - start.y, end.x - start.x);
+        let length: f32 = (dx * dx + dy * dy).sqrt();
+        let normalized: Vec2 = vec2(-dy / length, dx / length);
 
-    pub fn draw_triangle(&mut self, v1: Vec2, v2: Vec2, v3: Vec2, color: Vec4) {
-        let (v1, v2, v3): (Vertex, Vertex, Vertex) = (
-            Vertex::from_vec2_c(v1, color),
-            Vertex::from_vec2_c(v2, color),
-            Vertex::from_vec2_c(v3, color),
+        let v0 = (start + (normalized * half_size)) - midpoint;
+        let v1 = (start - (normalized * half_size)) - midpoint;
+
+        let v2 = (end + (normalized * half_size)) - midpoint;
+        let v3 = (end - (normalized * half_size)) - midpoint;
+
+        let t1 = Triangle::new(v0, v2, v1, color_map);
+        let t2 = Triangle::new(v1, v2, v3, color_map);
+
+        let line = self.world.new_entity();
+        let transform = Transformation {
+            position: midpoint,
+            velocity: Vec2::ZERO,
+            rotation: 0.0_f32,
+        };
+        self.world.add_component_to_entity(
+            line,
+            Geometry {
+                geometry_type: GeometryType::Triangle,
+                vertices: vec![t1, t2],
+            },
         );
-
-        self.push_asset(Triangle::new(v1, v2, v3));
+        self.world.add_component_to_entity(line, transform);
+        self.world.add_component_to_entity(
+            line,
+            Renderable {
+                color: TriangleColorMap::flat(color),
+                visible: true,
+            },
+        );
     }
 
     pub fn draw_circle(&mut self, position: Vec2, radius: f32, color: Vec4) {
-        self.push_asset(Circle {
+        let mut triangles: Vec<Triangle> = Vec::new();
+        let color_map = TriangleColorMap::flat(color);
+        //DICTATES THE NUMBER OF TRIANGLES USED TO BUILD A CIRCLE
+        const TRI_COUNT: usize = 30;
+        const COUNT_F32: f32 = TRI_COUNT as f32;
+
+        const SCALAR: f32 = 2_f32 * PI / COUNT_F32;
+
+        for index in 0..TRI_COUNT {
+            triangles.push(Triangle::new(
+                vec2(
+                    position.x + (radius * (index as f32 * SCALAR).cos()),
+                    position.y + (radius * (index as f32 * SCALAR).sin()),
+                ) - position,
+                vec2(
+                    position.x + (radius * ((index + 1) as f32 * SCALAR).cos()),
+                    position.y + (radius * ((index + 1) as f32 * SCALAR).sin()),
+                ) - position,
+                Vec2::ZERO,
+                color_map,
+            ))
+        }
+
+        let circle = self.world.new_entity();
+        let transform = Transformation {
             position,
-            radius,
-            color,
-        });
+            velocity: Vec2::ZERO,
+            rotation: 0.0_f32,
+        };
+        self.world.add_component_to_entity(
+            circle,
+            Geometry {
+                geometry_type: GeometryType::Circle,
+                vertices: triangles,
+            },
+        );
+        self.world.add_component_to_entity(circle, transform);
+        self.world.add_component_to_entity(
+            circle,
+            Renderable {
+                color: TriangleColorMap::flat(color),
+                visible: true,
+            },
+        );
 
         //UNIMPLEMENTED
     }
-    pub fn draw_triangle_raw(&mut self, v1: Vertex, v2: Vertex, v3: Vertex) {
-        self.push_asset(Triangle::new(v1, v2, v3));
+
+    pub fn draw_triangle(&mut self, v0: Vec2, v1: Vec2, v2: Vec2, color: Vec4) {
+        let color_map = TriangleColorMap::flat(color);
+        let triangle = self.world.new_entity();
+        let transform = Transformation {
+            position: v0.midpoint(v1).midpoint(v2),
+            velocity: Vec2::ZERO,
+            rotation: 0.0_f32,
+        };
+        self.world.add_component_to_entity(
+            triangle,
+            Geometry {
+                geometry_type: GeometryType::Triangle,
+                vertices: vec![Triangle::new(
+                    v0 - transform.position,
+                    v1 - transform.position,
+                    v2 - transform.position,
+                    color_map,
+                )],
+            },
+        );
+        self.world.add_component_to_entity(triangle, transform);
+        self.world.add_component_to_entity(
+            triangle,
+            Renderable {
+                color: TriangleColorMap::flat(color),
+                visible: true,
+            },
+        );
     }
 
-    pub fn push_asset(&mut self, item: impl Asset + 'static) {
-        let triangles = item.unpack();
-        let object = Object::new(item);
-        self.asset_manager.as_mut().unwrap().pool.push(object);
-
-        for tri in triangles {
-            self.wgpu_ctx.as_mut().unwrap().tri_object_store.push(tri);
-        }
+    pub fn draw_triangle_raw(
+        &mut self,
+        position: Vec2,
+        rotation: f32,
+        v0: Vec2,
+        v1: Vec2,
+        v2: Vec2,
+        c0: Vec4,
+        c1: Vec4,
+        c2: Vec4,
+    ) {
+        let triangle = self.world.new_entity();
+        let transform = Transformation {
+            position: vec2(
+                ((v0.x + v1.x) / 2.0 + v2.x) / 2.0,
+                ((v0.y + v1.y) / 2.0 + v2.y) / 2.0,
+            ),
+            velocity: Vec2::ZERO,
+            rotation,
+        };
+        let (v0, v1, v2) = (
+            vec2(v0.x - transform.position.x, v0.y - transform.position.y),
+            vec2(v1.x - transform.position.x, v1.y - transform.position.y),
+            vec2(v2.x - transform.position.x, v2.y - transform.position.y),
+        );
+        self.world.add_component_to_entity(
+            triangle,
+            Geometry {
+                geometry_type: GeometryType::Triangle,
+                vertices: vec![Triangle {
+                    position: position.into(),
+                    rotation: rotation,
+                    _pad: 0.0,
+                    v0: v0.into(),
+                    v1: v1.into(),
+                    v2: v2.into(),
+                    c0: c0.into(),
+                    c1: c1.into(),
+                    c2: c2.into(),
+                }],
+            },
+        );
+        self.world.add_component_to_entity(triangle, transform);
+        self.world.add_component_to_entity(
+            triangle,
+            Renderable {
+                color: TriangleColorMap {
+                    c0: Color::from_vec4(c0),
+                    c1: Color::from_vec4(c1),
+                    c2: Color::from_vec4(c2),
+                },
+                visible: true,
+            },
+        );
     }
 
     pub fn update_pipeline(&mut self) {
-        self.wgpu_ctx.as_mut().unwrap().update_tri_pipeline();
+        self.wgpu_ctx.as_mut().unwrap().sync_tri_instances();
     }
 }
 
 impl<'window> ApplicationHandler for App<'window> {
     fn resumed(&mut self, event_loop: &ActiveEventLoop) {
         if self.window.is_none() {
-            let win_attr = Window::default_attributes().with_title("wgpu winit example").with_inner_size(LogicalSize::new(800., 800.));
+            let win_attr = Window::default_attributes()
+                .with_title("wgpu winit example")
+                .with_inner_size(LogicalSize::new(800., 800.));
             // use Arc.
             let window = Arc::new(
                 event_loop
@@ -107,7 +311,7 @@ impl<'window> ApplicationHandler for App<'window> {
             .into();
             let wgpu_ctx = WgpuCtx::new(window.clone());
             self.wgpu_ctx = Some(wgpu_ctx);
-            self.asset_manager = Some(AssetManager::empty());
+            self.world = World::default();
             crate::setup_graphics(self);
         }
     }
@@ -137,14 +341,22 @@ impl<'window> ApplicationHandler for App<'window> {
                 }
             }
             WindowEvent::KeyboardInput {
-                event: KeyEvent {
-                    physical_key: PhysicalKey::Code(code),
-                    state: key_state,
-                    logical_key, text, location, repeat, ..},
+                event:
+                    KeyEvent {
+                        physical_key: PhysicalKey::Code(code),
+                        state: key_state,
+                        logical_key,
+                        text,
+                        location,
+                        repeat,
+                        ..
+                    },
                 ..
             } => (), //Handle any keypresses here!!!
             WindowEvent::MouseInput {
-                 device_id: _device_id, state, button 
+                device_id: _device_id,
+                state,
+                button,
             } => (), //Handle mouse input here!
             _ => (),
         }
@@ -160,6 +372,7 @@ pub fn scale_to_screen(display_size: Vec2, position: Vec2) -> Vec2 {
     scaled
 }
 
+//Takes a full pixel object and returns the screen-scaled vector2
 pub fn scale_pixel(display_size: Vec2, pixel: Vec2) -> Vec2 {
     (pixel / display_size) * 2.0
 }

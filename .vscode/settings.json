@@ -1,0 +1,7 @@
+{
+
+    // Prevent VS Code from watching changes in vendor (saves CPU/Memory)
+    "files.watcherExclude": {
+        "**/vendor/**": true
+    },
+}

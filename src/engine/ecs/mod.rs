@@ -1,6 +1,6 @@
 pub mod query;
-pub mod world;
 pub mod spatial;
+pub mod world;
 
 pub type Entity = usize;
 pub trait Component: std::fmt::Debug {}
@@ -82,11 +82,16 @@ impl<T> SparseSet<T> {
         self.dense.pop()
     }
     pub fn iter(&self) -> SparseSetIter<T> {
-        SparseSetIter { storage: self, index: 0 }
+        SparseSetIter {
+            storage: self,
+            index: 0,
+        }
     }
 
     pub fn iter_mut(&mut self) -> SparseSetIterMut<T> {
-        SparseSetIterMut { inner: self.dense.iter_mut() }
+        SparseSetIterMut {
+            inner: self.dense.iter_mut(),
+        }
     }
 }
 
@@ -103,7 +108,10 @@ impl<'a, T> Iterator for SparseSetIter<'a, T> {
             return None;
         }
 
-        let item = (&self.storage.entities[self.index], &self.storage.dense[self.index]);
+        let item = (
+            &self.storage.entities[self.index],
+            &self.storage.dense[self.index],
+        );
         self.index += 1;
         return Some(item);
     }

@@ -1,5 +1,5 @@
 #![allow(non_snake_case, unused_parens)]
-use crate::engine::ecs::{world::World, Component, SparseSet};
+use crate::engine::ecs::{Component, SparseSet, world::World};
 use std::marker::PhantomData;
 
 pub trait Query<'a> {
@@ -67,7 +67,7 @@ macro_rules! impl_query {
                     self.index += 1;
 
                     //O(1) time btw
-                    let contains_all = true $(&& self.$set_type.contains(entity))+; 
+                    let contains_all = true $(&& self.$set_type.contains(entity))+;
                     if contains_all == true {
                         return Some(
                             ($(self.$set_type.get(entity).unwrap()),+)
@@ -120,7 +120,7 @@ macro_rules! impl_query_mut {
             index: usize,
             driver: usize,
             // PhantomData tells the compiler this struct conceptually holds mutable references tied to lifetime 'a, ensuring safety outside the macro.
-            _marker: PhantomData<&'a mut ()>, 
+            _marker: PhantomData<&'a mut ()>,
         }
 
         impl<'a, $($set_type: Component + 'static),+>
@@ -163,7 +163,7 @@ macro_rules! impl_query_mut {
                     if contains_all {
                         return Some((
                             $(
-                                // SAFETY: Types are distinct (enforced by how the query is used). 
+                                // SAFETY: Types are distinct (enforced by how the query is used).
                                 // only yield each entity once, preventing mutable aliasing.
                                 unsafe { &mut *self.$set_type }.get_mut(entity).unwrap()
                             ),+
@@ -180,14 +180,14 @@ macro_rules! impl_query_mut {
 
             fn fetch(world: &'a mut World) -> Self::Iter {
                 // SAFETY: temporarily cast the world to a raw pointer.
-                // This stops the compiler from panicking when extracting multiple 
+                // This stops the compiler from panicking when extracting multiple
                 // mutable sets from the same HashMap in the macro loop below.
                 let world_ptr = world as *mut World;
 
                 $(
                     let $set_type = unsafe { &mut *world_ptr }
                         .get_component_set_mut::<$set_type>()
-                        .expect("Tried to mutably query a component that is not registered") 
+                        .expect("Tried to mutably query a component that is not registered")
                         as *mut SparseSet<$set_type>;
                 )+
 

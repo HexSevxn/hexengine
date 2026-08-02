@@ -11,7 +11,8 @@
             "cargo": {
                 "args": [
                     "run",
-                    "--bin=hexengine"
+                    "--bin=hexengine",
+                    "--offline"
                 ]
             },
             "args": []

@@ -37,7 +37,7 @@ pub fn setup_graphics(app: &mut App) {
 
     app.draw_circle(vec2(0.0, 0.0), 0.5, vec4(1.0, 1.0, 1.0, 1.0));
 
-    app.update_pipeline();
+    app.render_step();
 }
 
 pub fn read_file(path: &str) -> Vec<String> {
