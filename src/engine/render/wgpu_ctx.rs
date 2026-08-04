@@ -9,8 +9,6 @@ use super::Triangle;
 
 pub const TRIANGLE_SHADER_SOURCE: ShaderSource =
     ShaderSource::Wgsl(Cow::Borrowed(include_str!("shaders/triangle.wgsl")));
-pub const CIRCLE_SHADER_SOURCE: ShaderSource =
-    ShaderSource::Wgsl(Cow::Borrowed(include_str!("shaders/circle.wgsl")));
 
 const SURFACE_BACKGROUND_COLOR: wgpu::Color = wgpu::Color::BLACK;
 
@@ -91,11 +89,12 @@ fn setup_tri_pipeline(
     swap_chain_format: &wgpu::TextureFormat,
     object_store: &Vec<Triangle>,
 ) -> (wgpu::RenderPipeline, TriangleInstanceBuffer) {
-    // Load the shaders from disk
+    // Load the shaders from file into memory
     let shader = device.create_shader_module(wgpu::ShaderModuleDescriptor {
         label: Some("triangle_shader"),
         source: TRIANGLE_SHADER_SOURCE,
     });
+    // Pipeline creation
     let pipeline = device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
         label: Some("triangle_pipeline"),
         layout: None,
@@ -135,7 +134,7 @@ fn setup_tri_pipeline(
     let (storage_buffer, bind_group) =
         create_tri_storage_buffer(device, &bind_group_layout, initial_capacity);
 
-    (
+    return (
         pipeline,
         TriangleInstanceBuffer::new(
             storage_buffer,
@@ -143,9 +142,8 @@ fn setup_tri_pipeline(
             object_store.len() as u32,
             initial_capacity,
         ),
-    )
+    );
 }
-
 
 impl<'window> WgpuCtx<'window> {
     pub async fn new_async(window: Arc<Window>) -> WgpuCtx<'window> {

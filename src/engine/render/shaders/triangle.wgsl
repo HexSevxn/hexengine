@@ -3,15 +3,15 @@
 // a position offset and a rotation angle (radians).
 
 struct Instance {
-    position: vec2<f32>, // world-space translation
-    rotation: f32,       // rotation angle in radians
-    _pad: f32,           // padding to keep vertices 8-byte aligned
-    v0: vec2<f32>,       // triangle vertex 0 (local space)
-    v1: vec2<f32>,       // triangle vertex 1 (local space)
-    v2: vec2<f32>,       // triangle vertex 2 (local space)
-    c0: vec4<f32>,
-    c1: vec4<f32>,
-    c2: vec4<f32>,
+    position: vec2<f32>,    // world-space translation
+    rotation: f32,          // rotation angle in radians
+    _pad: f32,              // padding to keep vertices 8-byte aligned
+    v0: vec2<f32>,          // triangle vertex 0 (local space)
+    v1: vec2<f32>,          // triangle vertex 1 (local space)
+    v2: vec2<f32>,          // triangle vertex 2 (local space)
+    c0: vec4<f32>,          // triangle color 0
+    c1: vec4<f32>,          // triangle color 0
+    c2: vec4<f32>,          // triangle color 0
 };
 
 @group(0) @binding(0)

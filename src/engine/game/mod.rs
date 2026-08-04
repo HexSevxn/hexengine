@@ -39,7 +39,6 @@ pub struct Transformation {
     pub position: Vec2,
     pub velocity: Vec2,
     pub rotation: f32,
-    //Rotation?
 }
 impl Component for Transformation {}
 
@@ -55,7 +54,7 @@ impl Default for Transformation {
 
 #[derive(Debug)]
 pub struct Renderable {
-    pub color: TriangleColorMap, //Change to a colormap that describes the color of each vertex in the geometry
+    pub color: TriangleColorMap, //A colormap that describes the color of each vertex in the geometry
     pub visible: bool,
 }
 impl Component for Renderable {}

@@ -11,9 +11,12 @@ pub struct Triangle {
     pub position: [f32; 2],
     pub rotation: f32,
     pub _pad: f32,
+
     pub v0: [f32; 2],
     pub v1: [f32; 2],
     pub v2: [f32; 2],
+    pub _pad2: [f32; 2],
+
     pub c0: [f32; 4],
     pub c1: [f32; 4],
     pub c2: [f32; 4],
@@ -25,9 +28,12 @@ impl Default for Triangle {
             position: [0.0, 0.0],
             rotation: 0.0,
             _pad: 0.0,
+
             v0: [0.0, 0.0],
             v1: [1.0, 0.0],
             v2: [0.0, 1.0],
+            _pad2: [0.0, 0.0],
+
             c0: [1.0, 1.0, 1.0, 1.0],
             c1: [1.0, 1.0, 1.0, 1.0],
             c2: [1.0, 1.0, 1.0, 1.0],

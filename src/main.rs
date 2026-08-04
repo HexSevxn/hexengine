@@ -12,17 +12,9 @@ fn main() -> Result<(), EventLoopError> {
 /*
 todo
 
-render loop fetches all entities with renderable, geometry, and transformation
-on creation, entities with geometry, transform, and renderable get pushed into the triangle instance buffer to be drawn
-wgsl shader must draw based on passed instance buffer, so need binding group to tell rpass.draw how to pass information
-    (not a flat vertex walk for each triangle anymore)
+camera view through uniform shader and "global" entity
+    -- requires its own buffer
 
-switch the rendering over to an ECS compatible render loop, want high performance conversions from ECS types to renderable types (vertices)
-move main loop over from condelve to try and get something more interesting rendered
-maybe get input handling
-
-create view buffer (memory allocation)
-create bind group layout for view
-create bindgroup for view
-
+do something with inputs
+text rendering
 */

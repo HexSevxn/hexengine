@@ -40,27 +40,23 @@ impl<'window> App<'window> {
             if !render_data.visible {
                 continue;
             }
-            let triangle = geometry
-                .vertices
-                .first()
-                .expect("No triangle found in geometry.");
 
-            ctx.tri_object_store.push(Triangle {
-                position: transform.position.into(),
-                rotation: transform.rotation,
-                _pad: 0.0,
-                v0: triangle.v0,
-                v1: triangle.v1,
-                v2: triangle.v2,
-                c0: triangle.c0,
-                c1: triangle.c1,
-                c2: triangle.c2,
-            })
+            for triangle in &geometry.vertices {
+                ctx.tri_object_store.push(Triangle {
+                    position: transform.position.into(),
+                    rotation: transform.rotation,
+                    v0: triangle.v0,
+                    v1: triangle.v1,
+                    v2: triangle.v2,
+                    c0: triangle.c0,
+                    c1: triangle.c1,
+                    c2: triangle.c2,
+                    ..Default::default()
+                });
+            }
         }
         ctx.sync_tri_instances();
         ctx.draw();
-
-        print!("{:#?}", self);
     }
 
     // Draws a rectangle at position with given width, height, and color. position is pixel based and converted to proper proportion
@@ -155,12 +151,11 @@ impl<'window> App<'window> {
         let mut triangles: Vec<Triangle> = Vec::new();
         let color_map = TriangleColorMap::flat(color);
         //DICTATES THE NUMBER OF TRIANGLES USED TO BUILD A CIRCLE
-        const TRI_COUNT: usize = 30;
-        const COUNT_F32: f32 = TRI_COUNT as f32;
+        const CIRCLE_TRI_COUNT: usize = 30;
 
-        const SCALAR: f32 = 2_f32 * PI / COUNT_F32;
+        const SCALAR: f32 = 2_f32 * PI / CIRCLE_TRI_COUNT as f32;
 
-        for index in 0..TRI_COUNT {
+        for index in 0..CIRCLE_TRI_COUNT {
             triangles.push(Triangle::new(
                 vec2(
                     position.x + (radius * (index as f32 * SCALAR).cos()),
@@ -196,8 +191,6 @@ impl<'window> App<'window> {
                 visible: true,
             },
         );
-
-        //UNIMPLEMENTED
     }
 
     pub fn draw_triangle(&mut self, v0: Vec2, v1: Vec2, v2: Vec2, color: Vec4) {
@@ -262,13 +255,13 @@ impl<'window> App<'window> {
                 vertices: vec![Triangle {
                     position: position.into(),
                     rotation: rotation,
-                    _pad: 0.0,
                     v0: v0.into(),
                     v1: v1.into(),
                     v2: v2.into(),
                     c0: c0.into(),
                     c1: c1.into(),
                     c2: c2.into(),
+                    ..Default::default()
                 }],
             },
         );
@@ -297,7 +290,7 @@ impl<'window> ApplicationHandler for App<'window> {
             let win_attr = Window::default_attributes()
                 .with_title("wgpu winit example")
                 .with_inner_size(LogicalSize::new(800., 800.));
-            // use Arc.
+            // use Arc. --I forgot why this note is here, thanks past me.
             let window = Arc::new(
                 event_loop
                     .create_window(win_attr)
@@ -363,7 +356,7 @@ impl<'window> ApplicationHandler for App<'window> {
     }
 }
 
-//Takes a coordinate in pixels and converts it to a screenspace coordinate based on the display size
+//Takes a coordinate in pixels and converts it to a screen-scaled vector2 based on the display size
 pub fn scale_to_screen(display_size: Vec2, position: Vec2) -> Vec2 {
     let scaled = vec2(
         ((position.x / display_size.x) * 2.0) - 1.0,
