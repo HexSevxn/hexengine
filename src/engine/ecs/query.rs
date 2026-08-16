@@ -78,7 +78,7 @@ macro_rules! impl_query {
         }
 
         impl<'a, $($set_type: Component + 'static),+>
-            Query<'a> for ($(&'a $set_type,)+)
+            Query<'a> for ($(&'a $set_type),+)
         {
             type Iter = $name<'a, $($set_type),+>;
 

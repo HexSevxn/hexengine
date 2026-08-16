@@ -1,6 +1,7 @@
 use std::borrow::Cow;
 use std::mem::size_of;
 use std::sync::Arc;
+use glam::Vec2;
 use wgpu::MemoryHints::Performance;
 use wgpu::{CurrentSurfaceTexture, ShaderSource, Trace};
 use winit::window::Window;
@@ -23,6 +24,8 @@ pub struct WgpuCtx<'window> {
     tri_render_pipeline: wgpu::RenderPipeline,
     pub tri_object_store: Vec<Triangle>,
     tri_instance_buffer: TriangleInstanceBuffer,
+    camera_uniform: wgpu::Buffer,
+    camera_data: CameraUniform,
 }
 
 #[repr(C)]
@@ -58,17 +61,38 @@ impl TriangleInstanceBuffer {
     }
 }
 
+#[repr(C)]
+#[derive(Debug, Clone, Copy, bytemuck::Pod, bytemuck::Zeroable)]
+pub struct CameraUniform {
+    pub position: [f32; 2],
+    pub _pad: [f32; 2],
+}
+
+impl Default for CameraUniform {
+    fn default() -> Self {
+        return CameraUniform { position: [0.0, 0.0], _pad: [0.0, 0.0] }
+    }
+}
+
 pub fn create_tri_storage_buffer(
     device: &wgpu::Device,
     bind_group_layout: &wgpu::BindGroupLayout,
     capacity_instances: u32,
-) -> (wgpu::Buffer, wgpu::BindGroup) {
+) -> (wgpu::Buffer, wgpu::Buffer, wgpu::BindGroup) {
     let size = (capacity_instances.max(1) as u64) * (size_of::<Triangle>() as u64);
 
-    let buffer = device.create_buffer(&wgpu::BufferDescriptor {
+    let triangle_buffer = device.create_buffer(&wgpu::BufferDescriptor {
         label: Some("Triangle Instance Buffer"),
         size,
         usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_DST,
+        mapped_at_creation: false,
+    });
+
+    let uniform_buffer_size: u64 = size_of::<CameraUniform>() as u64;
+    let uniform_buffer = device.create_buffer(&wgpu::BufferDescriptor {
+        label: Some("Camera Uniform Buffer"),
+        size: uniform_buffer_size,
+        usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
         mapped_at_creation: false,
     });
 
@@ -77,18 +101,23 @@ pub fn create_tri_storage_buffer(
         layout: bind_group_layout,
         entries: &[wgpu::BindGroupEntry {
             binding: 0,
-            resource: buffer.as_entire_binding(),
-        }],
+            resource: triangle_buffer.as_entire_binding(),
+        },
+        wgpu::BindGroupEntry {
+            binding: 1,
+            resource: uniform_buffer.as_entire_binding(),
+        }
+        ],
     });
 
-    (buffer, bind_group)
+    (triangle_buffer, uniform_buffer, bind_group)
 }
 
 fn setup_tri_pipeline(
     device: &wgpu::Device,
     swap_chain_format: &wgpu::TextureFormat,
     object_store: &Vec<Triangle>,
-) -> (wgpu::RenderPipeline, TriangleInstanceBuffer) {
+) -> (wgpu::RenderPipeline, TriangleInstanceBuffer, wgpu::Buffer) {
     // Load the shaders from file into memory
     let shader = device.create_shader_module(wgpu::ShaderModuleDescriptor {
         label: Some("triangle_shader"),
@@ -131,17 +160,18 @@ fn setup_tri_pipeline(
     });
     let bind_group_layout = pipeline.get_bind_group_layout(0);
     let initial_capacity = 16u32;
-    let (storage_buffer, bind_group) =
+    let (triangle_storage_buffer, camera_uniform, bind_group) =
         create_tri_storage_buffer(device, &bind_group_layout, initial_capacity);
 
     return (
         pipeline,
         TriangleInstanceBuffer::new(
-            storage_buffer,
+            triangle_storage_buffer,
             bind_group,
             object_store.len() as u32,
             initial_capacity,
         ),
+        camera_uniform,
     );
 }
 
@@ -187,7 +217,7 @@ impl<'window> WgpuCtx<'window> {
         surface.configure(&device, &surface_config);
 
         let tri_object_store: Vec<Triangle> = Vec::new();
-        let (tri_render_pipeline, tri_instance_buffer) =
+        let (tri_render_pipeline, tri_instance_buffer, camera_uniform) =
             setup_tri_pipeline(&device, &surface_config.format, &tri_object_store);
 
         WgpuCtx {
@@ -199,6 +229,8 @@ impl<'window> WgpuCtx<'window> {
             tri_render_pipeline,
             tri_object_store,
             tri_instance_buffer,
+            camera_uniform,
+            camera_data: CameraUniform::default(),
         }
     }
 
@@ -221,11 +253,14 @@ impl<'window> WgpuCtx<'window> {
             // Grow with some slack so we're not reallocating every time the count creeps up by one.
             let new_capacity = needed.max(self.tri_instance_buffer.capacity_instances * 2);
             let bind_group_layout = self.tri_render_pipeline.get_bind_group_layout(0);
-            let (buffer, bind_group) =
+            let (buffer, camera_uniform, bind_group) =
                 create_tri_storage_buffer(&self.device, &bind_group_layout, new_capacity);
             self.tri_instance_buffer.buffer = Some(buffer);
             self.tri_instance_buffer.bind_group = Some(bind_group);
             self.tri_instance_buffer.capacity_instances = new_capacity;
+
+            self.camera_uniform = camera_uniform;
+            self.queue.write_buffer(&self.camera_uniform, 0, bytemuck::cast_slice(&[self.camera_data]));
         }
 
         if needed > 0 {
@@ -237,6 +272,11 @@ impl<'window> WgpuCtx<'window> {
         }
 
         self.tri_instance_buffer.num_instances = needed;
+    }
+
+    pub fn update_camera_position(&mut self, position: Vec2) {
+        self.camera_data.position = position.into();
+        self.queue.write_buffer(&self.camera_uniform, 0, bytemuck::cast_slice(&[self.camera_data]));
     }
 
     pub fn draw(&mut self) {

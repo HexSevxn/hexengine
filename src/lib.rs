@@ -4,8 +4,15 @@ pub mod engine;
 use engine::render::app::{App, scale_to_screen};
 use glam::{vec2, vec4};
 
+use crate::engine::game::level::load_legacy_data;
+
 pub fn setup_graphics(app: &mut App) {
+    app.create_camera();
     let display_size = app.display_size.clone();
+
+    /*
+    test graphics
+
     let grid_size: f32 = 64.0;
 
     let x_offset = display_size.x / grid_size;
@@ -36,6 +43,9 @@ pub fn setup_graphics(app: &mut App) {
     }
 
     app.draw_circle(vec2(0.0, 0.0), 0.5, vec4(1.0, 1.0, 1.0, 1.0));
+    */
+
+    load_legacy_data("spawn.txt", "spawn", &mut app.world);
 
     app.render_step();
 }

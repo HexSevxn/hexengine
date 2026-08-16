@@ -4,11 +4,11 @@ use std::fs::File;
 use std::io::Write;
 
 use crate::engine::{
-    ecs::{Component, Entity, world::World},
-    game::{Collidable, Renderable, Transformation},
-    render::color::{Color, TriangleColorMap},
+    ecs::{Component, Entity, world::World}, game::{Collidable, Geometry, Renderable, Transformation}, math::get_rectangle_triangles, render::color::{Color, TriangleColorMap},
 };
 use crate::read_file;
+
+pub const SIZE_SCALAR: f32 = 40.0;
 
 #[derive(Debug)]
 pub struct LevelData {
@@ -35,25 +35,33 @@ pub fn load_legacy_data(legacy_name: &str, new_name: &str, world: &mut World) {
         );
 
         let position = (
-            u16::from_str_radix(data[0], 10).unwrap(),
-            u16::from_str_radix(data[1], 10).unwrap(),
+            u16::from_str_radix(data[0], 10).unwrap() as f32 / SIZE_SCALAR,
+            u16::from_str_radix(data[1], 10).unwrap() as f32 / SIZE_SCALAR,
         );
         world.add_component_to_entity(
             object_entity,
             Transformation {
-                position: Vec2::new(position.0 as f32, position.1 as f32),
+                position: Vec2::new(position.0, position.1),
                 velocity: Vec2::ZERO,
                 rotation: 0.0_f32,
             },
         );
         match data[2].to_lowercase().as_str() {
-            "air" => world.add_component_to_entity(
+            "air" => {
+                world.add_component_to_entity(
                 object_entity,
                 Renderable {
                     color: TriangleColorMap::flat(Vec4::ZERO),
                     ..Default::default()
-                },
-            ),
+                });
+                let (t1, t2) = get_rectangle_triangles(position.into(), 1.0, 1.0, Vec4::ZERO);
+                world.add_component_to_entity(
+                object_entity,
+                Geometry {
+                    geometry_type: super::GeometryType::Triangle,
+                    vertices: vec!(t1, t2),
+                });
+            },
             "wall" => {
                 world.add_component_to_entity(
                     object_entity,
@@ -63,6 +71,13 @@ pub fn load_legacy_data(legacy_name: &str, new_name: &str, world: &mut World) {
                     },
                 );
                 world.add_component_to_entity(object_entity, Collidable);
+                let (t1, t2) = get_rectangle_triangles(position.into(), 1.0, 1.0, Vec4::ONE);
+                world.add_component_to_entity(
+                object_entity,
+                Geometry {
+                    geometry_type: super::GeometryType::Triangle,
+                    vertices: vec!(t1, t2),
+                });
                 //world.spacial_tree.insert_pt(Point {x: position.0, y: position.1}, object_entity);
             }
             _ => (),

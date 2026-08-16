@@ -14,8 +14,16 @@ struct Instance {
     c2: vec4<f32>,          // triangle color 0
 };
 
+struct CameraUniform {
+    position: vec2<f32>,
+    _pad: vec2<f32>,
+}
+
 @group(0) @binding(0)
 var<storage, read> instances: array<Instance>;
+
+@group(0) @binding(1)
+var<uniform> camera: CameraUniform;
 
 struct VertexOutput {
     @builtin(position) clip_position: vec4<f32>,
@@ -47,8 +55,11 @@ fn vs_main(
     );
     let world_pos = rotated + instance.position;
 
+    //The viewpoint position of the vertex based on the camera position
+    let view_pos = world_pos - camera.position;
+
     var out: VertexOutput;
-    out.clip_position = vec4<f32>(world_pos, 0.0, 1.0);
+    out.clip_position = vec4<f32>(view_pos, 0.0, 1.0);
     out.color = vertex_color;
     return out;
 }

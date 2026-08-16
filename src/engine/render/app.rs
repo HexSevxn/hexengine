@@ -6,11 +6,12 @@ use winit::application::ApplicationHandler;
 use winit::dpi::LogicalSize;
 use winit::event::{KeyEvent, WindowEvent};
 use winit::event_loop::ActiveEventLoop;
-use winit::keyboard::PhysicalKey;
+use winit::keyboard::{KeyCode, PhysicalKey};
 use winit::window::{Window, WindowId};
 
 use crate::engine::ecs::world::World;
-use crate::engine::game::{Geometry, GeometryType, Renderable, Transformation};
+use crate::engine::game::{Camera, Geometry, GeometryType, Renderable, Transformation};
+use crate::engine::math::get_rectangle_triangles;
 use crate::engine::render::color::Color;
 use crate::engine::render::wgpu_ctx::WgpuCtx;
 use crate::engine::render::{Triangle, TriangleColorMap};
@@ -62,22 +63,12 @@ impl<'window> App<'window> {
     // Draws a rectangle at position with given width, height, and color. position is pixel based and converted to proper proportion
     pub fn draw_rectangle(&mut self, position: Vec2, width: f32, height: f32, color: Vec4) {
         let display_size = self.display_size.clone();
-        let color_map = TriangleColorMap::flat(color);
 
         let scaled_position = scale_to_screen(display_size, position);
         let scaled_components = scale_pixel(display_size, vec2(width, height));
-
         let midpoint = vec2(position.x + (width / 2.0), position.y + (height / 2.0));
-        let v0 = scaled_position - midpoint;
-        let v1 = vec2(scaled_position.x + scaled_components.x, scaled_position.y) - midpoint;
-        let v2 = vec2(scaled_position.x, scaled_position.y + scaled_components.y) - midpoint;
-        let v3 = vec2(
-            scaled_position.x + scaled_components.x,
-            scaled_position.y + scaled_components.y,
-        ) - midpoint;
 
-        let t1 = Triangle::new(v0, v2, v1, color_map);
-        let t2 = Triangle::new(v1, v2, v3, color_map);
+        let (t1, t2) = get_rectangle_triangles(scaled_position, scaled_components.x, scaled_components.y, color);
 
         let rectangle = self.world.new_entity();
         let transform = Transformation {
@@ -279,8 +270,26 @@ impl<'window> App<'window> {
         );
     }
 
+    pub fn update_camera_position(&mut self, delta: Vec2) {
+        let mut camera_query = self.world.query_mut::<(&mut Camera, &mut Transformation)>();
+        let (_camera, transform) = camera_query.next().expect("No camera created."); // SHOULD only be one camera, but we get the first one regardless.
+        transform.position += delta;
+        self.wgpu_ctx.as_mut().unwrap().update_camera_position(transform.position);
+
+        self.render_step();
+    }
+
     pub fn update_pipeline(&mut self) {
         self.wgpu_ctx.as_mut().unwrap().sync_tri_instances();
+    }
+
+    pub fn create_camera(&mut self) {
+        let camera = self.world.new_entity();
+        self.world.add_component_to_entity(camera, Camera {});
+        self.world.add_component_to_entity(camera, Transformation {
+            position: vec2(0.5, 0.5),
+            ..Default::default()
+        });
     }
 }
 
@@ -345,7 +354,17 @@ impl<'window> ApplicationHandler for App<'window> {
                         ..
                     },
                 ..
-            } => (), //Handle any keypresses here!!!
+            } => {
+                if !key_state.is_pressed() {return}
+                match code {
+                    KeyCode::KeyW => self.update_camera_position(vec2(0.0, -0.05)),
+                    KeyCode::KeyS => self.update_camera_position(vec2(0.0, 0.05)),
+                    KeyCode::KeyA => self.update_camera_position(vec2(0.05, 0.0)),
+                    KeyCode::KeyD => self.update_camera_position(vec2(-0.05, 0.0)),
+
+                    _ => (),
+                }
+            }, //Handle any keypresses here!!!
             WindowEvent::MouseInput {
                 device_id: _device_id,
                 state,

@@ -69,5 +69,9 @@ impl Default for Renderable {
 }
 
 #[derive(Debug)]
+pub struct Camera {}
+impl Component for Camera {}
+
+#[derive(Debug)]
 pub struct Collidable;
 impl Component for Collidable {}
