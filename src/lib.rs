@@ -1,18 +1,17 @@
 pub mod editor;
 pub mod engine;
+pub mod game;
 
-use engine::render::app::{App, scale_to_screen};
-use glam::{vec2, vec4};
+use engine::app::{App, scale_to_screen};
+use glam::{vec2, vec3, vec4};
 
-use crate::engine::game::level::load_legacy_data;
+use crate::game::level::{load_legacy_data, save_world_data};
 
 pub fn setup_graphics(app: &mut App) {
     app.create_camera();
     let display_size = app.display_size.clone();
 
     /*
-    test graphics
-
     let grid_size: f32 = 64.0;
 
     let x_offset = display_size.x / grid_size;
@@ -42,10 +41,12 @@ pub fn setup_graphics(app: &mut App) {
         }
     }
 
-    app.draw_circle(vec2(0.0, 0.0), 0.5, vec4(1.0, 1.0, 1.0, 1.0));
-    */
+    app.draw_circle(vec2(0.0, 0.0), 0.5, vec4(1.0, 1.0, 1.0, 1.0));*/
 
+    //Player Entity
+    app.create_player(5, 5, 1);
     load_legacy_data("spawn.txt", "spawn", &mut app.world);
+    save_world_data("spawn", &mut app.world);
 
     app.render_step();
 }

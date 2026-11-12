@@ -1,5 +1,5 @@
 #![allow(non_snake_case, unused_parens)]
-use crate::engine::ecs::{Component, SparseSet, world::World};
+use crate::engine::ecs::{Component, Entity, SparseSet, world::World};
 use std::marker::PhantomData;
 
 pub trait Query<'a> {
@@ -12,93 +12,138 @@ pub trait QueryMut<'a> {
     fn fetch(world: &'a mut World) -> Self::Iter;
 }
 
+pub trait QueryParam<'a> {
+    type Item;
+
+    fn entities(world: &'a World) -> Option<&'a [Entity]>;
+    unsafe fn get(world: *const World, entity: Entity) -> Option<Self::Item>;
+}
+
+impl<'a, T: Component + 'static> QueryParam<'a> for &'a T {
+    type Item = &'a T;
+
+    fn entities(world: &'a World) -> Option<&'a [Entity]> {
+        Some(&world.get_component_set::<T>()?.entities)
+    }
+
+    unsafe fn get(world: *const World, entity: Entity) -> Option<Self::Item> {
+        // SAFETY: the query owns an immutable borrow of the World for 'a.
+        let set = unsafe { &*world }.get_component_set::<T>()?;
+        let component = set.get(entity)? as *const T;
+        // SAFETY: `component` points into the World borrowed for 'a.
+        Some(unsafe { &*component })
+    }
+}
+
+impl<'a> QueryParam<'a> for Entity {
+    type Item = Entity;
+
+    fn entities(_world: &'a World) -> Option<&'a [Entity]> {
+        None
+    }
+
+    unsafe fn get(_world: *const World, entity: Entity) -> Option<Self::Item> {
+        Some(entity)
+    }
+}
+
+pub trait QueryMutParam<'a> {
+    type Item;
+
+    fn entities(world: &'a World) -> Option<&'a [Entity]>;
+    unsafe fn get(world: *mut World, entity: Entity) -> Option<Self::Item>;
+}
+
+impl<'a, T: Component + 'static> QueryMutParam<'a> for &'a mut T {
+    type Item = &'a mut T;
+
+    fn entities(world: &'a World) -> Option<&'a [Entity]> {
+        Some(&world.get_component_set::<T>()?.entities)
+    }
+
+    unsafe fn get(world: *mut World, entity: Entity) -> Option<Self::Item> {
+        // SAFETY: `QueryMut::fetch` has exclusive access to the World for 'a.
+        // The query contract requires that the same mutable component type is
+        // not requested more than once in a tuple.
+        let set = unsafe { &mut *world }.get_component_set_mut::<T>()?;
+        let component = set.get_mut(entity)? as *mut T;
+        // SAFETY: the component belongs to the exclusively borrowed World.
+        Some(unsafe { &mut *component })
+    }
+}
+
+impl<'a> QueryMutParam<'a> for Entity {
+    type Item = Entity;
+
+    fn entities(_world: &'a World) -> Option<&'a [Entity]> {
+        None
+    }
+
+    unsafe fn get(_world: *mut World, entity: Entity) -> Option<Self::Item> {
+        Some(entity)
+    }
+}
+
 //Creates a Query trait implementation for queries with the given number of input types
 macro_rules! impl_query {
-    ($name:ident, $($set_type:ident),+) => {
+    ($name:ident, $($param:ident),+) => {
         #[derive(Debug)]
-        pub struct $name<'a, $($set_type),+> {
-            $(
-                $set_type: &'a SparseSet<$set_type>,
-            )+
+        pub struct $name<'a, $($param),+> {
+            world: *const World,
+            entities: &'a [Entity],
             index: usize,
-            driver: usize,
+            _marker: PhantomData<($($param,)+)>,
         }
 
-        impl<'a, $($set_type: Component + 'static),+>
-            $name<'a, $($set_type),+>
-        {
-            fn new(
-                $($set_type: &'a SparseSet<$set_type>),+,
-                driver: usize,
-            ) -> Self {
-                Self {
-                    $($set_type),+,
-                    index: 0,
-                    driver,
-                }
-            }
-        }
-
-        impl<'a, $($set_type: Component + 'static),+>
-            Iterator for $name<'a, $($set_type),+>
-        {
-            type Item = ($(&'a $set_type),+);
+        impl<'a, $($param: QueryParam<'a>),+> Iterator for $name<'a, $($param),+> {
+            type Item = ($(<$param as QueryParam<'a>>::Item,)+);
 
             fn next(&mut self) -> Option<Self::Item> {
-                loop {
-                    let mut current_idx = 0;
-                    let mut entity = None;
-
-                    $(
-                        if self.driver == current_idx {
-                            if self.index < self.$set_type.entities.len() {
-                                entity = Some(self.$set_type.entities[self.index]);
-                            }
-                        }
-                        current_idx += 1;
-                    )+
-                    let _ = current_idx;
-
-                    let entity = match entity {
-                        Some(e) => e,
-                        None => return None,
-                    };
-
+                while self.index < self.entities.len() {
+                    let entity = self.entities[self.index];
                     self.index += 1;
 
-                    //O(1) time btw
-                    let contains_all = true $(&& self.$set_type.contains(entity))+;
-                    if contains_all == true {
-                        return Some(
-                            ($(self.$set_type.get(entity).unwrap()),+)
-                        );
+                    // All QueryParam::get calls use the same entity. A missing
+                    // required component causes this entity to be skipped.
+                    let result = unsafe {
+                        (
+                            $(<$param as QueryParam<'a>>::get(self.world, entity),)+
+                        )
+                    };
+
+                    if let ($(Some($param),)+) = result {
+                        return Some(($($param,)+));
                     }
                 }
+
+                None
             }
         }
 
-        impl<'a, $($set_type: Component + 'static),+>
-            Query<'a> for ($(&'a $set_type),+)
-        {
-            type Iter = $name<'a, $($set_type),+>;
+        impl<'a, $($param: QueryParam<'a> + 'a),+> Query<'a> for ($($param,)+) {
+            type Iter = $name<'a, $($param),+>;
 
-            //Finds the smallest set before creating iterator
             fn fetch(world: &'a World) -> Self::Iter {
-                $(let $set_type = world.get_component_set::<$set_type>().unwrap();)+
+                let mut driver: Option<&'a [Entity]> = None;
 
-                let mut driver = 0;
-                let mut min_len = usize::MAX;
-                let mut current_idx = 0;
                 $(
-                    if $set_type.entities.len() < min_len {
-                        min_len = $set_type.entities.len();
-                        driver = current_idx;
+                    if let Some(entities) = <$param as QueryParam<'a>>::entities(world) {
+                        if driver.map_or(true, |current| entities.len() < current.len()) {
+                            driver = Some(entities);
+                        }
                     }
-                    current_idx += 1;
                 )+
-                let (_, _) = (min_len, current_idx);
 
-                $name::new($($set_type),+, driver)
+                let entities = driver.expect(
+                    "Query must contain at least one component-backed parameter"
+                );
+
+                Self::Iter {
+                    world: world as *const World,
+                    entities,
+                    index: 0,
+                    _marker: PhantomData,
+                }
             }
         }
     };
@@ -110,108 +155,78 @@ impl_query!(QueryIter3, A, B, C);
 impl_query!(QueryIter4, A, B, C, D);
 
 macro_rules! impl_query_mut {
-    ($name:ident, $($set_type:ident),+) => {
+    ($name:ident, $($param:ident),+) => {
         #[derive(Debug)]
-        pub struct $name<'a, $($set_type),+> {
-            // use raw pointers instead of references to bypass the HashMap double-borrow and the Iterator lifetime issues.
-            $(
-                $set_type: *mut SparseSet<$set_type>,
-            )+
+        pub struct $name<'a, $($param),+> {
+            world: *mut World,
+            entities: &'a [Entity],
             index: usize,
-            driver: usize,
-            // PhantomData tells the compiler this struct conceptually holds mutable references tied to lifetime 'a, ensuring safety outside the macro.
-            _marker: PhantomData<&'a mut ()>,
+            _marker: PhantomData<($($param,)+)>,
+            _world: PhantomData<&'a mut World>,
         }
 
-        impl<'a, $($set_type: Component + 'static),+>
-            Iterator for $name<'a, $($set_type),+>
+        impl<'a, $($param: QueryMutParam<'a>),+> Iterator
+            for $name<'a, $($param),+>
         {
-            type Item = ($(&'a mut $set_type),+);
+            type Item = ($(<$param as QueryMutParam<'a>>::Item,)+);
 
             fn next(&mut self) -> Option<Self::Item> {
-                loop {
-                    let mut current_idx = 0;
-                    let mut entity = None;
-
-                    $(
-                        if self.driver == current_idx {
-                            // SAFETY: have exclusive access to these sets for lifetime 'a
-                            let driver_set = unsafe { &*self.$set_type };
-                            if self.index < driver_set.entities.len() {
-                                entity = Some(driver_set.entities[self.index]);
-                            }
-                        }
-                        current_idx += 1;
-                    )+
-
-                    let _ = current_idx;
-
-                    let entity = match entity {
-                        Some(e) => e,
-                        None => return None,
-                    };
-
+                while self.index < self.entities.len() {
+                    let entity = self.entities[self.index];
                     self.index += 1;
 
-                    let mut contains_all = true;
+                    // SAFETY: `QueryMut::fetch` has exclusive access to the
+                    // World for 'a. Each requested mutable component type is
+                    // expected to occur at most once in the query tuple.
+                    let result = unsafe {
+                        (
+                            $(<$param as QueryMutParam<'a>>::get(self.world, entity),)+
+                        )
+                    };
 
-                    $(
-                        let set = unsafe { &*self.$set_type };
-                        contains_all = contains_all && set.contains(entity);
-                    )+
-
-                    if contains_all {
-                        return Some((
-                            $(
-                                // SAFETY: Types are distinct (enforced by how the query is used).
-                                // only yield each entity once, preventing mutable aliasing.
-                                unsafe { &mut *self.$set_type }.get_mut(entity).unwrap()
-                            ),+
-                        ));
+                    if let ($(Some($param),)+) = result {
+                        return Some(($($param,)+));
                     }
                 }
+
+                None
             }
         }
 
-        impl<'a, $($set_type: Component + 'static),+>
-            QueryMut<'a> for ($(&'a mut $set_type),+)
+        impl<'a, $($param: QueryMutParam<'a> + 'a),+> QueryMut<'a>
+            for ($($param,)+)
         {
-            type Iter = $name<'a, $($set_type),+>;
+            type Iter = $name<'a, $($param),+>;
 
             fn fetch(world: &'a mut World) -> Self::Iter {
-                // SAFETY: temporarily cast the world to a raw pointer.
-                // This stops the compiler from panicking when extracting multiple
-                // mutable sets from the same HashMap in the macro loop below.
+                // We keep the World exclusively borrowed for the entire
+                // iterator lifetime. Raw access is only used to work around
+                // the HashMap's dynamic component storage.
                 let world_ptr = world as *mut World;
+                let world_shared = world as *const World;
+
+                let mut driver: Option<&'a [Entity]> = None;
 
                 $(
-                    let $set_type = unsafe { &mut *world_ptr }
-                        .get_component_set_mut::<$set_type>()
-                        .expect("Tried to mutably query a component that is not registered")
-                        as *mut SparseSet<$set_type>;
-                )+
-
-                let mut driver = 0;
-                let mut min_len = usize::MAX;
-                let mut current_idx = 0;
-
-                $(
-                    let set_len = unsafe { &*$set_type }.entities.len();
-                    if set_len < min_len {
-                        min_len = set_len;
-                        driver = current_idx;
+                    if let Some(entities) = unsafe {
+                        <$param as QueryMutParam<'a>>::entities(&*world_shared)
+                    } {
+                        if driver.map_or(true, |current| entities.len() < current.len()) {
+                            driver = Some(entities);
+                        }
                     }
-                    current_idx += 1;
                 )+
 
-                let _ = current_idx;
-                let _ = min_len;
+                let entities = driver.expect(
+                    "Mutable query must contain at least one component-backed parameter"
+                );
 
-                $name {
-                    $($set_type,)+
+                Self::Iter {
+                    world: world_ptr,
+                    entities,
                     index: 0,
-                    driver,
                     _marker: PhantomData,
+                    _world: PhantomData,
                 }
             }
         }

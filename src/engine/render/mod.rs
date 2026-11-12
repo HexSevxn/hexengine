@@ -1,4 +1,4 @@
-pub mod app;
+
 pub mod color;
 pub mod wgpu_ctx;
 
@@ -8,9 +8,8 @@ use glam::Vec2;
 #[repr(C)]
 #[derive(Debug, Copy, Clone, bytemuck::Pod, bytemuck::Zeroable)]
 pub struct Triangle {
-    pub position: [f32; 2],
+    pub position: [f32; 3],
     pub rotation: f32,
-    pub _pad: f32,
 
     pub v0: [f32; 2],
     pub v1: [f32; 2],
@@ -25,9 +24,8 @@ pub struct Triangle {
 impl Default for Triangle {
     fn default() -> Self {
         Triangle {
-            position: [0.0, 0.0],
+            position: [0.0, 0.0, 0.0],
             rotation: 0.0,
-            _pad: 0.0,
 
             v0: [0.0, 0.0],
             v1: [1.0, 0.0],

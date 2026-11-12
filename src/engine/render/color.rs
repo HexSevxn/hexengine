@@ -47,6 +47,13 @@ impl Color {
         a: 1.0,
     };
 
+    pub const BROWN: Color = Color {
+        r: 0.53,
+        g: 0.31,
+        b: 0.16,
+        a: 1.0,
+    };
+
     pub fn as_vec4(&self) -> Vec4 {
         return vec4(self.r, self.g, self.b, self.a);
     }

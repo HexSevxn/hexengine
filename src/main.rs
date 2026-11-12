@@ -1,4 +1,4 @@
-use hexengine::engine::render::app::App;
+use hexengine::engine::app::App;
 use winit::error::EventLoopError;
 use winit::event_loop::{ControlFlow, EventLoop};
 

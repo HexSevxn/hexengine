@@ -2,7 +2,8 @@ pub mod query;
 pub mod spatial;
 pub mod world;
 
-pub type Entity = usize;
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub struct Entity(pub usize);
 pub trait Component: std::fmt::Debug {}
 
 #[derive(Debug)]
@@ -24,19 +25,20 @@ impl<T> SparseSet<T> {
     //Add new data mapped to the given entity (EID)
     pub fn add(&mut self, entity: Entity, component: T) {
         let index = self.dense.len();
+        let id: usize = entity.0;
 
-        if entity >= self.sparse.len() {
-            self.sparse.resize(entity + 1, usize::MAX);
+        if id >= self.sparse.len() {
+            self.sparse.resize(id + 1, usize::MAX);
         }
 
         self.dense.push(component);
         self.entities.push(entity);
-        self.sparse[entity] = index;
+        self.sparse[id] = index;
     }
 
     //Check if the sparse set contains component data for the given entity (EID)
     pub fn contains(&self, entity: Entity) -> bool {
-        if let Some(&index) = self.sparse.get(entity) {
+        if let Some(&index) = self.sparse.get(entity.0) {
             index != usize::MAX && self.entities[index] == entity
         } else {
             false
@@ -45,7 +47,7 @@ impl<T> SparseSet<T> {
 
     pub fn get(&self, entity: Entity) -> Option<&T> {
         if self.contains(entity) {
-            let index = self.sparse[entity];
+            let index = self.sparse[entity.0];
             Some(&self.dense[index])
         } else {
             None
@@ -54,7 +56,7 @@ impl<T> SparseSet<T> {
 
     pub fn get_mut(&mut self, entity: Entity) -> Option<&mut T> {
         if self.contains(entity) {
-            let index = self.sparse[entity];
+            let index = self.sparse[entity.0];
             Some(&mut self.dense[index])
         } else {
             None
@@ -67,16 +69,16 @@ impl<T> SparseSet<T> {
             return None;
         }
 
-        let entity_index = self.sparse[entity];
+        let entity_index = self.sparse[entity.0];
         let last_index = self.dense.len() - 1;
 
         self.dense.swap(entity_index, last_index);
         self.entities.swap(entity_index, last_index);
 
         let moved_entity = self.entities[entity_index];
-        self.sparse[moved_entity] = entity_index;
+        self.sparse[moved_entity.0] = entity_index;
 
-        self.sparse[entity] = usize::MAX;
+        self.sparse[entity.0] = usize::MAX;
 
         self.entities.pop();
         self.dense.pop()

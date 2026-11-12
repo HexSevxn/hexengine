@@ -1,18 +1,18 @@
+use glam::{Vec2, Vec3};
 use std::borrow::Cow;
 use std::mem::size_of;
 use std::sync::Arc;
-use glam::Vec2;
 use wgpu::MemoryHints::Performance;
-use wgpu::{CurrentSurfaceTexture, ShaderSource, Trace};
+use wgpu::{CurrentSurfaceTexture, DeviceDescriptor, ShaderSource, Trace};
 use winit::window::Window;
 
 use super::Triangle;
 
-pub const TRIANGLE_SHADER_SOURCE: ShaderSource =
+const TRIANGLE_SHADER_SOURCE: ShaderSource =
     ShaderSource::Wgsl(Cow::Borrowed(include_str!("shaders/triangle.wgsl")));
 
 const SURFACE_BACKGROUND_COLOR: wgpu::Color = wgpu::Color::BLACK;
-
+const DEPTH_FORMAT: wgpu::TextureFormat = wgpu::TextureFormat::Depth32Float;
 #[allow(dead_code)]
 #[derive(Debug)]
 pub struct WgpuCtx<'window> {
@@ -26,6 +26,8 @@ pub struct WgpuCtx<'window> {
     tri_instance_buffer: TriangleInstanceBuffer,
     camera_uniform: wgpu::Buffer,
     camera_data: CameraUniform,
+    depth_texture: wgpu::Texture,
+    depth_view: wgpu::TextureView,
 }
 
 #[repr(C)]
@@ -64,13 +66,16 @@ impl TriangleInstanceBuffer {
 #[repr(C)]
 #[derive(Debug, Clone, Copy, bytemuck::Pod, bytemuck::Zeroable)]
 pub struct CameraUniform {
-    pub position: [f32; 2],
-    pub _pad: [f32; 2],
+    pub position: [f32; 3],
+    pub _pad: f32,
 }
 
 impl Default for CameraUniform {
     fn default() -> Self {
-        return CameraUniform { position: [0.0, 0.0], _pad: [0.0, 0.0] }
+        return CameraUniform {
+            position: [0.0, 0.0, 0.0],
+            _pad: 0.0,
+        };
     }
 }
 
@@ -99,18 +104,41 @@ pub fn create_tri_storage_buffer(
     let bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
         label: Some("triangle_bind_group"),
         layout: bind_group_layout,
-        entries: &[wgpu::BindGroupEntry {
-            binding: 0,
-            resource: triangle_buffer.as_entire_binding(),
-        },
-        wgpu::BindGroupEntry {
-            binding: 1,
-            resource: uniform_buffer.as_entire_binding(),
-        }
+        entries: &[
+            wgpu::BindGroupEntry {
+                binding: 0,
+                resource: triangle_buffer.as_entire_binding(),
+            },
+            wgpu::BindGroupEntry {
+                binding: 1,
+                resource: uniform_buffer.as_entire_binding(),
+            },
         ],
     });
 
     (triangle_buffer, uniform_buffer, bind_group)
+}
+
+fn create_depth_texture(
+    device: &wgpu::Device,
+    surface_config: &wgpu::SurfaceConfiguration,
+) -> (wgpu::Texture, wgpu::TextureView) {
+    let texture = device.create_texture(&wgpu::TextureDescriptor {
+        label: Some("Depth Texture"),
+        size: wgpu::Extent3d {
+            width: surface_config.width,
+            height: surface_config.height,
+            depth_or_array_layers: 1,
+        },
+        mip_level_count: 1,
+        sample_count: 1,
+        dimension: wgpu::TextureDimension::D2,
+        format: DEPTH_FORMAT,
+        usage: wgpu::TextureUsages::RENDER_ATTACHMENT | wgpu::TextureUsages::TEXTURE_BINDING,
+        view_formats: &[],
+    });
+    let view = texture.create_view(&wgpu::TextureViewDescriptor::default());
+    (texture, view)
 }
 
 fn setup_tri_pipeline(
@@ -153,7 +181,13 @@ fn setup_tri_pipeline(
             // conservative: false,
             ..Default::default()
         },
-        depth_stencil: None,
+        depth_stencil: Some(wgpu::DepthStencilState {
+            format: DEPTH_FORMAT,
+            depth_write_enabled: Some(true),
+            depth_compare: Some(wgpu::CompareFunction::Less),
+            stencil: wgpu::StencilState::default(),
+            bias: wgpu::DepthBiasState::default(),
+        }),
         multisample: wgpu::MultisampleState::default(),
         cache: None,
         multiview_mask: None,
@@ -220,6 +254,8 @@ impl<'window> WgpuCtx<'window> {
         let (tri_render_pipeline, tri_instance_buffer, camera_uniform) =
             setup_tri_pipeline(&device, &surface_config.format, &tri_object_store);
 
+        let (depth_texture, depth_view) = create_depth_texture(&device, &surface_config);
+
         WgpuCtx {
             surface,
             surface_config,
@@ -231,6 +267,8 @@ impl<'window> WgpuCtx<'window> {
             tri_instance_buffer,
             camera_uniform,
             camera_data: CameraUniform::default(),
+            depth_texture,
+            depth_view,
         }
     }
 
@@ -243,6 +281,10 @@ impl<'window> WgpuCtx<'window> {
         self.surface_config.width = width.max(1);
         self.surface_config.height = height.max(1);
         self.surface.configure(&self.device, &self.surface_config);
+
+        let (depth_texture, depth_view) = create_depth_texture(&self.device, &self.surface_config);
+        self.depth_texture = depth_texture;
+        self.depth_view = depth_view;
     }
 
     //updates the pipeline with the current object store
@@ -260,7 +302,11 @@ impl<'window> WgpuCtx<'window> {
             self.tri_instance_buffer.capacity_instances = new_capacity;
 
             self.camera_uniform = camera_uniform;
-            self.queue.write_buffer(&self.camera_uniform, 0, bytemuck::cast_slice(&[self.camera_data]));
+            self.queue.write_buffer(
+                &self.camera_uniform,
+                0,
+                bytemuck::cast_slice(&[self.camera_data]),
+            );
         }
 
         if needed > 0 {
@@ -274,9 +320,13 @@ impl<'window> WgpuCtx<'window> {
         self.tri_instance_buffer.num_instances = needed;
     }
 
-    pub fn update_camera_position(&mut self, position: Vec2) {
+    pub fn update_camera_position(&mut self, position: Vec3) {
         self.camera_data.position = position.into();
-        self.queue.write_buffer(&self.camera_uniform, 0, bytemuck::cast_slice(&[self.camera_data]));
+        self.queue.write_buffer(
+            &self.camera_uniform,
+            0,
+            bytemuck::cast_slice(&[self.camera_data]),
+        );
     }
 
     pub fn draw(&mut self) {
@@ -311,7 +361,14 @@ impl<'window> WgpuCtx<'window> {
                     },
                     depth_slice: None,
                 })],
-                depth_stencil_attachment: None,
+                depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {
+                    view: &self.depth_view,
+                    depth_ops: Some(wgpu::Operations {
+                        load: wgpu::LoadOp::Clear(1.0), // 1.0 = farthest, matches CompareFunction::Less
+                        store: wgpu::StoreOp::Discard, // we don't need to read depth back afterward
+                    }),
+                    stencil_ops: None,
+                }),
                 timestamp_writes: None,
                 occlusion_query_set: None,
                 multiview_mask: None,

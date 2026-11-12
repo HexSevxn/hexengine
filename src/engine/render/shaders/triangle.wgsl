@@ -2,21 +2,24 @@
 // Draws a triangle defined by three local-space vertices, transformed by
 // a position offset and a rotation angle (radians).
 
+const NEAR_Z: f32 = 0.0; // Minimum Z value
+const FAR_Z: f32 = 10.0; //Maximum Z value
+
 struct Instance {
-    position: vec2<f32>,    // world-space translation
-    rotation: f32,          // rotation angle in radians
-    _pad: f32,              // padding to keep vertices 8-byte aligned
+    position: vec3<f32>,    // world-space translation
+    rotation: f32,          // rotation angle in radians            // padding to keep vertices 8-byte aligned
     v0: vec2<f32>,          // triangle vertex 0 (local space)
     v1: vec2<f32>,          // triangle vertex 1 (local space)
     v2: vec2<f32>,          // triangle vertex 2 (local space)
+    _pad: vec2<f32>,   
     c0: vec4<f32>,          // triangle color 0
     c1: vec4<f32>,          // triangle color 0
     c2: vec4<f32>,          // triangle color 0
 };
 
 struct CameraUniform {
-    position: vec2<f32>,
-    _pad: vec2<f32>,
+    position: vec3<f32>,
+    _pad: f32,
 }
 
 @group(0) @binding(0)
@@ -49,17 +52,20 @@ fn vs_main(
     let sin_offset = sin(instance.rotation);
 
     // 2D rotation matrix applied to the local vertex
-    let rotated = vec2<f32>(
+    let rotated = vec3<f32>(
         local_pos.x * cos_offset - local_pos.y * sin_offset,
-        local_pos.x * sin_offset + local_pos.y * cos_offset
+        local_pos.x * sin_offset + local_pos.y * cos_offset,
+        0.0,
     );
     let world_pos = rotated + instance.position;
 
     //The viewpoint position of the vertex based on the camera position
     let view_pos = world_pos - camera.position;
 
+    let depth = clamp((view_pos.z - NEAR_Z) / (FAR_Z - NEAR_Z), 0.0, 1.0);
+
     var out: VertexOutput;
-    out.clip_position = vec4<f32>(view_pos, 0.0, 1.0);
+    out.clip_position = vec4<f32>(view_pos.xy, depth, 1.0);
     out.color = vertex_color;
     return out;
 }
