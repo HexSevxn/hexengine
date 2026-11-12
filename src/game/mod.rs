@@ -5,9 +5,17 @@ use crate::engine::{ecs::Component, render::color::TriangleColorMap};
 use glam::{Vec2, Vec3, vec2, vec3, vec4};
 
 pub mod level;
+pub mod player;
 
 pub const SIZE_SCALAR: f32 = 40.0;
 pub const GRID_CELL_SIZE: f32 = 1.0 / SIZE_SCALAR;
+
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
+pub enum GameState {
+    #[default]
+    MainMenu,
+    Playing,
+}
 
 //Determines what shape an object has for rendering
 //stores triangle or circle data within enum
@@ -26,7 +34,6 @@ impl Component for Geometry {}
 
 impl Geometry {
     pub fn get_bounds(&self) -> AABB {
-        
         match self.geometry_type {
             GeometryType::Cell(t1, t2) => {
                 let verts = [t1.v0, t1.v1, t1.v2, t2.v0, t2.v1, t2.v2].map(Vec2::from);
@@ -38,10 +45,10 @@ impl Geometry {
                     max = max.max(v);
                 }
 
-                AABB::new_raw( min, max )
-            },
+                AABB::new_raw(min, max)
+            }
 
-            _ => AABB::ZERO
+            _ => AABB::ZERO,
         }
     }
 }
@@ -101,7 +108,7 @@ impl Component for Camera {}
 
 impl Default for Camera {
     fn default() -> Self {
-        Camera {synced: true}
+        Camera { synced: true }
     }
 }
 
@@ -117,10 +124,6 @@ impl Default for Collidable {
     }
 }
 
-#[derive(Debug)]
-pub struct PlayerControl;
-impl Component for PlayerControl {}
-
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct WorldPosition {
     pub x: i32,
@@ -131,13 +134,13 @@ impl Component for WorldPosition {}
 
 impl WorldPosition {
     pub fn new(x: i32, y: i32, z: i32) -> WorldPosition {
-        WorldPosition { x, y, z}
+        WorldPosition { x, y, z }
     }
 
     pub fn to_tuple2d(&self) -> (i32, i32) {
         (self.x, self.y)
     }
-    
+
     pub fn to_render(&self) -> Vec3 {
         vec3(
             self.x as f32 * GRID_CELL_SIZE + GRID_CELL_SIZE / 2.0,
@@ -157,13 +160,17 @@ impl WorldPosition {
 
 impl Default for WorldPosition {
     fn default() -> Self {
-        WorldPosition { x: 0, y: 0, z: 0}
+        WorldPosition { x: 0, y: 0, z: 0 }
     }
 }
 
 impl From<(u16, u16)> for WorldPosition {
     fn from(value: (u16, u16)) -> Self {
-        WorldPosition { x: value.0 as i32, y: value.1 as i32, z: 0 }
+        WorldPosition {
+            x: value.0 as i32,
+            y: value.1 as i32,
+            z: 0,
+        }
     }
 }
 
@@ -180,11 +187,15 @@ pub struct Interactable {
 impl Component for Interactable {}
 
 impl Interactable {
-    pub const DOOR: Interactable = Interactable {interaction_type: InteractionType::Door};
+    pub const DOOR: Interactable = Interactable {
+        interaction_type: InteractionType::Door,
+    };
 }
 
 impl Default for Interactable {
     fn default() -> Self {
-        Interactable { interaction_type: InteractionType::Null }
+        Interactable {
+            interaction_type: InteractionType::Null,
+        }
     }
 }

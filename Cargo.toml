@@ -7,7 +7,10 @@ edition = "2024"
 opt-level = 1
 
 [dependencies]
-wgpu = {version = "30.0.1", default-features = false, features = ["vulkan", "wgsl", "glsl", "std", "parking_lot"]}
+wgpu = {version = "30.0.2", default-features = false, features = ["vulkan", "wgsl", "glsl", "std", "parking_lot"]}
+egui = {version = "0.37.0", features = ["default_fonts"]} #may need feature flags in future
+egui-wgpu = { version = "0.37.0", default-features = false }
+egui-winit = "0.37.0"
 winit = { version = "0.30.12", features = ["android-native-activity"] }
 pollster = { version = "1.0.1" }
 bytemuck = "1.24.0"

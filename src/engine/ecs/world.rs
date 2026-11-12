@@ -1,11 +1,14 @@
 use glam::vec2;
 
-use crate::engine::{ecs::{
-    Component, Entity, SparseSet, query::{Query, QueryMut}, spatial::{AABB, Quadtree},
-}};
+use crate::engine::ecs::{
+    Component, Entity, SparseSet,
+    query::{Query, QueryMut},
+    spatial::{AABB, Quadtree},
+};
 use crate::game::{Collidable, Geometry, WorldPosition};
 use std::{
-    any::{Any, TypeId}, collections::{HashMap, HashSet},
+    any::{Any, TypeId},
+    collections::{HashMap, HashSet},
 };
 
 //Type for easy additions in future (generations?)
@@ -25,7 +28,7 @@ impl World {
             entity_count: 0,
             component_storage: HashMap::new(),
             collision_grid: HashMap::new(),
-            spacial_tree: Quadtree::new(AABB::new(vec2(0.0, 0.0), vec2(100.0, 100.0)))
+            spacial_tree: Quadtree::new(AABB::new(vec2(0.0, 0.0), vec2(100.0, 100.0))),
         }
     }
 
@@ -93,39 +96,49 @@ impl World {
 
     pub fn create_collision_grid(&mut self) {
         let entities = self
-        .query::<(Entity, &Collidable, &WorldPosition)>()
-        .map(|(entity, _, position)| (entity, position.to_tuple2d()))
-        .collect::<Vec<(Entity, (i32, i32))>>();
+            .query::<(Entity, &Collidable, &WorldPosition)>()
+            .map(|(entity, _, position)| (entity, position.to_tuple2d()))
+            .collect::<Vec<(Entity, (i32, i32))>>();
 
         self.collision_grid.clear();
 
         for (entity, position) in entities {
-            self.collision_grid.entry(position).or_default().push(entity);
+            self.collision_grid
+                .entry(position)
+                .or_default()
+                .push(entity);
         }
     }
     fn is_solid(&self, entity: Entity) -> bool {
-
-        match self.get_component_set::<Collidable>().and_then(|s| s.get(entity)) {
+        match self
+            .get_component_set::<Collidable>()
+            .and_then(|s| s.get(entity))
+        {
             Some(collidable) => !collidable.overwrite,
             None => true,
         }
     }
 
     pub fn check_grid_collision(&self, position: (i32, i32)) -> bool {
-        self.collision_grid.get(&position).is_some_and(|entities| entities.iter().any(|&e| self.is_solid(e)))
+        self.collision_grid
+            .get(&position)
+            .is_some_and(|entities| entities.iter().any(|&e| self.is_solid(e)))
     }
 
     pub fn check_collisions(&mut self, entity: Entity) -> bool {
         if !self.get_entity_component::<Collidable>(entity).is_some() {
             return false;
         }
-        let geometry = self.get_entity_component::<Geometry>(entity).expect("Checking collision on entity without geometry!").get_bounds();
-        
+        let geometry = self
+            .get_entity_component::<Geometry>(entity)
+            .expect("Checking collision on entity without geometry!")
+            .get_bounds();
+
         let mut query_results: HashSet<Entity> = HashSet::new();
-            self.spacial_tree.query(geometry, &mut query_results);
-            if query_results.contains(&entity) {
-                return true;
-            }
+        self.spacial_tree.query(geometry, &mut query_results);
+        if query_results.contains(&entity) {
+            return true;
+        }
 
         return false;
     }

@@ -83,14 +83,14 @@ impl<T> SparseSet<T> {
         self.entities.pop();
         self.dense.pop()
     }
-    pub fn iter(&self) -> SparseSetIter<T> {
+    pub fn iter(&self) -> SparseSetIter<'_, T> {
         SparseSetIter {
             storage: self,
             index: 0,
         }
     }
 
-    pub fn iter_mut(&mut self) -> SparseSetIterMut<T> {
+    pub fn iter_mut(&mut self) -> SparseSetIterMut<'_, T> {
         SparseSetIterMut {
             inner: self.dense.iter_mut(),
         }

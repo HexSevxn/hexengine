@@ -1,9 +1,9 @@
-use glam::{Vec2, Vec3};
+use glam::Vec3;
 use std::borrow::Cow;
 use std::mem::size_of;
 use std::sync::Arc;
 use wgpu::MemoryHints::Performance;
-use wgpu::{CurrentSurfaceTexture, DeviceDescriptor, ShaderSource, Trace};
+use wgpu::{CurrentSurfaceTexture, ShaderSource, Trace};
 use winit::window::Window;
 
 use super::Triangle;
@@ -329,7 +329,20 @@ impl<'window> WgpuCtx<'window> {
         );
     }
 
+    pub fn device(&self) -> &wgpu::Device {
+        &self.device
+    }
+
+    pub fn surface_format(&self) -> wgpu::TextureFormat {
+        self.surface_config.format
+    }
+
     pub fn draw(&mut self) {
+        self.draw_with(|_| {});
+    }
+
+    //Draws the game, but hands overlay the swapchain and view for a second pass for the UI, then submits to
+    pub fn draw_with(&mut self, overlay: impl FnOnce(OverlayTarget)) {
         //Attempts to fetch the current surface texture, multiple possible states must be handled, and some require reconfiguration of the surface.
         let surface_texture = match self.surface.get_current_texture() {
             CurrentSurfaceTexture::Success(texture)
@@ -386,7 +399,22 @@ impl<'window> WgpuCtx<'window> {
             );
             rpass.draw(0..3, 0..self.tri_instance_buffer.num_instances);
         }
+        overlay(OverlayTarget {
+            device: &self.device,
+            queue: &self.queue,
+            encoder: &mut encoder,
+            view: &texture_view,
+            size_in_pixels: [self.surface_config.width, self.surface_config.height],
+        });
         self.queue.submit(Some(encoder.finish()));
         self.queue.present(surface_texture)
     }
+}
+
+pub struct OverlayTarget<'a> {
+    pub device: &'a wgpu::Device,
+    pub queue: &'a wgpu::Queue,
+    pub encoder: &'a mut wgpu::CommandEncoder,
+    pub view: &'a wgpu::TextureView,
+    pub size_in_pixels: [u32; 2],
 }

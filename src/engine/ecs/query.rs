@@ -1,5 +1,5 @@
 #![allow(non_snake_case, unused_parens)]
-use crate::engine::ecs::{Component, Entity, SparseSet, world::World};
+use crate::engine::ecs::{Component, Entity, world::World};
 use std::marker::PhantomData;
 
 pub trait Query<'a> {

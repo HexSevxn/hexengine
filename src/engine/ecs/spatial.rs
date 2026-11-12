@@ -12,18 +12,27 @@ pub struct AABB {
 
 impl AABB {
     pub fn new(center: Vec2, half_extents: Vec2) -> AABB {
-        AABB { min: center - half_extents, max: center + half_extents }
+        AABB {
+            min: center - half_extents,
+            max: center + half_extents,
+        }
     }
 
     pub fn intersects(&self, other: &AABB) -> bool {
-        self.min.x <= other.max.x && self.max.x >= other.min.x && self.min.y <= other.max.y && self.max.y >= other.min.y
+        self.min.x <= other.max.x
+            && self.max.x >= other.min.x
+            && self.min.y <= other.max.y
+            && self.max.y >= other.min.y
     }
 
     pub fn new_raw(min: Vec2, max: Vec2) -> AABB {
-        AABB {min, max}
+        AABB { min, max }
     }
 
-    pub const ZERO: AABB = AABB {min: Vec2::ZERO, max: Vec2::ZERO};
+    pub const ZERO: AABB = AABB {
+        min: Vec2::ZERO,
+        max: Vec2::ZERO,
+    };
 }
 
 const MAX_ENTRIES_PER_NODE: usize = 8;
@@ -54,7 +63,7 @@ impl Quadtree {
             bounds,
             depth,
             entries: Vec::new(),
-            children: None
+            children: None,
         }
     }
 
@@ -67,7 +76,7 @@ impl Quadtree {
     //Inserts data into a quadtree, given the data entry and bounds
     pub fn insert(&mut self, entity: Entity, aabb: AABB) {
         if !aabb.intersects(&self.bounds) {
-            return
+            return;
         }
 
         if let Some(children) = &mut self.children {
@@ -88,17 +97,35 @@ impl Quadtree {
     fn subdivide(&mut self) {
         let center = (self.bounds.min + self.bounds.max) / 2.0;
 
-        let mut children =  Box::new([
-            Quadtree::new_at_depth(AABB {min: self.bounds.min, max: center}, self.depth + 1),
-            Quadtree::new_at_depth(AABB {
-                min: Vec2::new(center.x, self.bounds.min.x), 
-                max: Vec2::new(self.bounds.max.x, center.y),
-            }, self.depth + 1),
-            Quadtree::new_at_depth(AABB {
-                min: Vec2::new(self.bounds.min.x, center.y),
-                max: Vec2::new(center.x, self.bounds.max.y),
-            }, self.depth + 1),
-            Quadtree::new_at_depth(AABB {min: center, max: self.bounds.max}, self.depth + 1),
+        let mut children = Box::new([
+            Quadtree::new_at_depth(
+                AABB {
+                    min: self.bounds.min,
+                    max: center,
+                },
+                self.depth + 1,
+            ),
+            Quadtree::new_at_depth(
+                AABB {
+                    min: Vec2::new(center.x, self.bounds.min.x),
+                    max: Vec2::new(self.bounds.max.x, center.y),
+                },
+                self.depth + 1,
+            ),
+            Quadtree::new_at_depth(
+                AABB {
+                    min: Vec2::new(self.bounds.min.x, center.y),
+                    max: Vec2::new(center.x, self.bounds.max.y),
+                },
+                self.depth + 1,
+            ),
+            Quadtree::new_at_depth(
+                AABB {
+                    min: center,
+                    max: self.bounds.max,
+                },
+                self.depth + 1,
+            ),
         ]);
 
         for (entity, aabb) in self.entries.drain(..) {
@@ -115,13 +142,13 @@ impl Quadtree {
         if !self.bounds.intersects(&region) {
             return;
         }
- 
+
         for (entity, aabb) in &self.entries {
             if aabb.intersects(&region) {
                 out.insert(*entity);
             }
         }
- 
+
         if let Some(children) = &self.children {
             for child in children.iter() {
                 child.query(region, out);

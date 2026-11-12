@@ -1,7 +1,7 @@
 use std::f32::consts::PI;
 use std::sync::Arc;
 
-use glam::{Vec2, Vec3, Vec3Swizzles, Vec4, vec2, vec3};
+use glam::{Vec2, Vec3, Vec3Swizzles, Vec4, vec2};
 use winit::application::ApplicationHandler;
 use winit::dpi::LogicalSize;
 use winit::event::{KeyEvent, WindowEvent};
@@ -11,22 +11,27 @@ use winit::window::{Window, WindowId};
 
 use crate::engine::ecs::Entity;
 use crate::engine::ecs::world::World;
-use crate::game::{Collidable, GRID_CELL_SIZE, Interactable, InteractionType};
-use crate::game::{Camera, Geometry, PlayerControl, Renderable, Transformation};
-use crate::game::{GeometryType, WorldPosition};
 use crate::engine::math::get_rectangle_triangles;
 use crate::engine::render::color::Color;
 use crate::engine::render::wgpu_ctx::WgpuCtx;
 use crate::engine::render::{Triangle, color::TriangleColorMap};
+use crate::engine::ui::{Gui, MainMenuAction};
+use crate::game::level::{convert_legacy_levels, load_level};
+use crate::game::{Camera, Geometry, Renderable, Transformation, player::PlayerControl};
+use crate::game::{Collidable, GRID_CELL_SIZE, GameState, Interactable, InteractionType};
+use crate::game::{GeometryType, WorldPosition};
 
 #[derive(Default, Debug)]
 pub struct App<'window> {
     window: Option<Arc<Window>>,
     wgpu_ctx: Option<WgpuCtx<'window>>,
+    gui: Option<Gui>,
     pub display_size: Vec2,
     pub world: World,
+    pub state: GameState,
 }
 
+//NON-GAME SPECIFIC IMPLEMENTATIONS
 impl<'window> App<'window> {
     //RENDER SYSTEM UPDATE
     pub fn render_step(&mut self) {
@@ -333,7 +338,8 @@ impl<'window> App<'window> {
         let grid_position = WorldPosition::new(0, 0, 0);
         let midpoint = grid_position.to_render();
 
-        self.world.add_component_to_entity(camera, Camera::default());
+        self.world
+            .add_component_to_entity(camera, Camera::default());
         self.world.add_component_to_entity(camera, grid_position);
         self.world.add_component_to_entity(
             camera,
@@ -348,7 +354,7 @@ impl<'window> App<'window> {
         let mut camera_query = self
             .world
             .query_mut::<(&mut Camera, &mut WorldPosition, &mut Transformation)>();
-        let (camera, world_position, transform) = camera_query.next().expect("No camera created."); // SHOULD only be one camera, but we get the first one regardless.
+        let (_camera, world_position, transform) = camera_query.next().expect("No camera created."); // SHOULD only be one camera, but we get the first one regardless.
 
         world_position.x += delta_x;
         world_position.y += delta_y;
@@ -362,13 +368,72 @@ impl<'window> App<'window> {
         self.render_step();
     }
 
+    pub fn start_level(&mut self, name: &str) {
+        self.world = World::default();
+        self.create_camera();
+        self.create_player(5, 5, 1);
+        if let Err(error) = load_level(name, &mut self.world) {
+            eprintln!("Failed to load level '{name}': {error}");
+            self.world = World::default();
+            return;
+        }
+
+        if let Some(ctx) = self.wgpu_ctx.as_mut() {
+            ctx.update_camera_position(WorldPosition::default().to_render());
+        }
+        self.state = GameState::Playing;
+        self.render_step();
+    }
+
+    pub fn return_to_menu(&mut self) {
+        self.world = World::default();
+        self.state = GameState::MainMenu;
+        if let Some(ctx) = self.wgpu_ctx.as_mut() {
+            ctx.tri_object_store.clear();
+            ctx.sync_tri_instances();
+        }
+        if let Some(gui) = self.gui.as_mut() {
+            gui.refresh_levels();
+        }
+        if let Some(window) = self.window.as_ref() {
+            window.request_redraw();
+        }
+    }
+
+    fn draw_menu(&mut self) -> MainMenuAction {
+        let (Some(ctx), Some(gui), Some(window)) = (
+            self.wgpu_ctx.as_mut(),
+            self.gui.as_mut(),
+            self.window.as_ref(),
+        ) else {
+            return MainMenuAction::None;
+        };
+        let mut action = MainMenuAction::None;
+        let mut repaint = false;
+        ctx.draw_with(|target| {
+            repaint = gui.render_main_menu(window, target, &mut action);
+        });
+        if repaint {
+            window.request_redraw();
+        }
+        action
+    }
+
+    //Updates the pipline and sorts the instance buffer by depth
+    pub fn update_pipeline(&mut self) {
+        self.wgpu_ctx.as_mut().unwrap().sync_tri_instances();
+    }
+}
+
+//GAME-SPECICI IMPLEMENTATIONS
+impl<'window> App<'window> {
     pub fn sync_camera_position(&mut self) {
         let (player_position, player_transform) = {
-            let mut player_query =
-            self.world
+            let mut player_query = self
+                .world
                 .query::<(&PlayerControl, &WorldPosition, &Transformation)>();
-            let (_player, player_position, player_transform) = player_query.next().expect("No player found.");
-
+            let (_player, player_position, player_transform) =
+                player_query.next().expect("No player found.");
 
             (player_position.clone(), player_transform.clone())
         };
@@ -376,9 +441,9 @@ impl<'window> App<'window> {
         let mut camera_query = self
             .world
             .query_mut::<(&mut Camera, &mut WorldPosition, &mut Transformation)>();
-        let (camera, camera_position, camera_transform) = camera_query.next().expect("No camera created."); // SHOULD only be one camera, but we get the first one regardless.
+        let (camera, camera_position, camera_transform) =
+            camera_query.next().expect("No camera created."); // SHOULD only be one camera, but we get the first one regardless.
         camera.synced = !camera.synced;
-        
 
         *camera_position = player_position;
         *camera_transform = player_transform;
@@ -430,27 +495,28 @@ impl<'window> App<'window> {
 
     pub fn update_player_position(&mut self, delta_x: i32, delta_y: i32) -> bool {
         let mut new_position = {
-            let mut player_query =
-            self.world
+            let mut player_query = self
+                .world
                 .query::<(&PlayerControl, &WorldPosition, &Transformation)>();
-            let (_player, world_position, _transform) = player_query.next().expect("No player found.");
+            let (_player, world_position, _transform) =
+                player_query.next().expect("No player found.");
 
             world_position.clone()
         };
         new_position.x += delta_x;
         new_position.y += delta_y;
-        
+
         if self.world.check_grid_collision(new_position.to_tuple2d()) {
             return false;
         }
 
         let mut player_query =
-        self.world
-            .query_mut::<(&mut PlayerControl, &mut WorldPosition, &mut Transformation)>();
+            self.world
+                .query_mut::<(&mut PlayerControl, &mut WorldPosition, &mut Transformation)>();
         let (_player, world_position, transform) = player_query.next().expect("No player found.");
         transform.position = new_position.to_render().with_z(transform.position.z);
         *world_position = new_position;
-        
+
         //PLAYER STILL UNABLE TO MOVE, TRANSFORM POSITION NOT UPDATING PROPERLY?
 
         self.render_step();
@@ -461,7 +527,8 @@ impl<'window> App<'window> {
         let mut camera_query = self
             .world
             .query::<(&Camera, &WorldPosition, &Transformation)>();
-        let (camera, _world_position, _transform) = camera_query.next().expect("No camera created."); // SHOULD only be one camera, but we get the first one regardless.
+        let (camera, _world_position, _transform) =
+            camera_query.next().expect("No camera created."); // SHOULD only be one camera, but we get the first one regardless.
         if camera.synced {
             if !self.update_player_position(delta_x, delta_y) {
                 return;
@@ -475,20 +542,20 @@ impl<'window> App<'window> {
             self.update_player_position(delta_x, delta_y);
         }
     }
-    
+
     pub fn handle_interaction(&mut self) {
         //get player and find cardinally neighboring cells, query for entities at those positions with Interactable
         //  from queried entities, match interaction type and do logic based on the interaction type
         let player_position = {
-            let mut player_query =
-            self.world
+            let mut player_query = self
+                .world
                 .query::<(&PlayerControl, &WorldPosition, &Transformation)>();
-            let (_player, world_position, _transform) = player_query.next().expect("No player found.");
-            
+            let (_player, world_position, _transform) =
+                player_query.next().expect("No player found.");
+
             world_position.clone()
         };
-        
-        
+
         for (dx, dy) in [(1, 0), (-1, 0), (0, 1), (0, -1)] {
             let entities: Vec<Entity> = self
                 .world
@@ -498,10 +565,17 @@ impl<'window> App<'window> {
                 .unwrap_or_default();
 
             for entity in entities {
-                if let Some(interactable) = self.world.get_entity_component::<Interactable>(entity).cloned() {
+                if let Some(interactable) = self
+                    .world
+                    .get_entity_component::<Interactable>(entity)
+                    .cloned()
+                {
                     match interactable.interaction_type {
                         InteractionType::Door => {
-                            let collidable = self.world.get_entity_component::<Collidable>(entity).unwrap();
+                            let collidable = self
+                                .world
+                                .get_entity_component::<Collidable>(entity)
+                                .unwrap();
                             collidable.overwrite = !collidable.overwrite;
                         }
                         _ => println!("Unhandled interaction!"),
@@ -510,10 +584,6 @@ impl<'window> App<'window> {
             }
         }
         self.render_step();
-    }
-    //Updates the pipline and sorts the instance buffer by depth
-    pub fn update_pipeline(&mut self) {
-        self.wgpu_ctx.as_mut().unwrap().sync_tri_instances();
     }
 }
 
@@ -536,9 +606,15 @@ impl<'window> ApplicationHandler for App<'window> {
             ]
             .into();
             let wgpu_ctx = WgpuCtx::new(window.clone());
+            self.gui = Some(Gui::new(&window, wgpu_ctx.device(), wgpu_ctx.surface_format()));
             self.wgpu_ctx = Some(wgpu_ctx);
             self.world = World::default();
-            crate::setup_graphics(self);
+            
+            if let Some(gui) = self.gui.as_mut() {
+                gui.refresh_levels();
+            }
+            self.state = GameState::MainMenu;
+            window.request_redraw();
         }
     }
 
@@ -548,6 +624,16 @@ impl<'window> ApplicationHandler for App<'window> {
         _window_id: WindowId,
         event: WindowEvent,
     ) {
+        let in_menu = self.state == GameState::MainMenu;
+        if let (Some(gui), Some(window)) = (self.gui.as_mut(), self.window.as_ref()) {
+            let response = gui.on_window_event(window, &event);
+            if response.repaint && in_menu {
+                window.request_redraw();
+            }
+            if response.consumed {
+                return;
+            }
+        }
         match event {
             WindowEvent::CloseRequested => {
                 event_loop.exit();
@@ -561,28 +647,36 @@ impl<'window> ApplicationHandler for App<'window> {
                     window.request_redraw();
                 }
             }
-            WindowEvent::RedrawRequested => {
-                if let Some(wgpu_ctx) = self.wgpu_ctx.as_mut() {
-                    wgpu_ctx.draw();
+            WindowEvent::RedrawRequested => match self.state {
+                GameState::MainMenu => match self.draw_menu() {
+                    MainMenuAction::Load(name) => self.start_level(&name),
+                    MainMenuAction::Quit => event_loop.exit(),
+                    MainMenuAction::None => {}
+                },
+                GameState::Playing => {
+                    if let Some(wgpu_ctx) = self.wgpu_ctx.as_mut() {
+                        wgpu_ctx.draw();
+                    }
                 }
-            }
+            },
             WindowEvent::KeyboardInput {
                 event:
                     KeyEvent {
                         physical_key: PhysicalKey::Code(code),
                         state: key_state,
-                        logical_key,
-                        text,
-                        location,
-                        repeat,
+                        logical_key: _,
+                        text: _,
+                        location: _,
+                        repeat: _,
                         ..
                     },
                 ..
             } => {
-                if !key_state.is_pressed() {
+                if !key_state.is_pressed() || self.state != GameState::Playing {
                     return;
                 }
                 match code {
+                    KeyCode::Escape => return self.return_to_menu(),
                     KeyCode::ArrowUp => self.handle_player_movement(0, 1, true),
                     KeyCode::ArrowDown => self.handle_player_movement(0, -1, true),
                     KeyCode::ArrowLeft => self.handle_player_movement(-1, 0, true),
@@ -598,8 +692,8 @@ impl<'window> ApplicationHandler for App<'window> {
             } //Handle any keypresses here!!!
             WindowEvent::MouseInput {
                 device_id: _device_id,
-                state,
-                button,
+                state: _,
+                button: _,
             } => (), //Handle mouse input here!
             _ => (),
         }

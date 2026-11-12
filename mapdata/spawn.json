@@ -1,0 +1,1754 @@
+{
+  "objects": [
+    {
+      "position": [
+        1,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        2,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        3,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        4,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        5,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        6,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        7,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        8,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        9,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        10,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        11,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        12,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        13,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        14,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        15,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        16,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        17,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        18,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        19,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        20,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        21,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        22,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        23,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        24,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        25,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        26,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        27,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        28,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        29,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        30,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        31,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        32,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        33,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        34,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        35,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        36,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        37,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        38,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        39,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        40,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        41,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        42,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        43,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        44,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        45,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        46,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        47,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        48,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        49,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        50,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        51,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        52,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        53,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        54,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        55,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        56,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        57,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        58,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        59,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        60,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        61,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        62,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        63,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        64,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        65,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        66,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        67,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        68,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        69,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        70,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        71,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        72,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        73,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        74,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        75,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        76,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        77,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        78,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        1
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        2
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        2
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        3
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        3
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        4
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        4
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        5
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        5
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        6
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        6
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        31,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        32,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        33,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        34,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        35,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        36,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        37,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        38,
+        7
+      ],
+      "otype": "Door"
+    },
+    {
+      "position": [
+        39,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        40,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        41,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        42,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        43,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        44,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        45,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        47,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        48,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        49,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        50,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        7
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        8
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        31,
+        8
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        45,
+        8
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        50,
+        8
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        8
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        9
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        31,
+        9
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        45,
+        9
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        9
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        10
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        31,
+        10
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        45,
+        10
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        50,
+        10
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        10
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        11
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        31,
+        11
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        45,
+        11
+      ],
+      "otype": "Door"
+    },
+    {
+      "position": [
+        50,
+        11
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        11
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        12
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        31,
+        12
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        45,
+        12
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        46,
+        12
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        47,
+        12
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        48,
+        12
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        49,
+        12
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        50,
+        12
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        12
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        13
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        31,
+        13
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        45,
+        13
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        13
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        14
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        31,
+        14
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        45,
+        14
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        14
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        31,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        32,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        33,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        34,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        35,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        36,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        37,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        38,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        39,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        40,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        41,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        42,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        45,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        15
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        16
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        16
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        17
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        17
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        18
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        18
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        19
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        19
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        20
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        20
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        1,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        2,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        3,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        4,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        5,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        6,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        7,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        8,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        9,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        10,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        11,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        12,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        13,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        14,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        15,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        16,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        17,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        18,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        19,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        20,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        21,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        22,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        23,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        24,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        25,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        26,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        27,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        28,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        29,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        30,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        31,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        32,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        33,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        34,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        35,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        36,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        37,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        38,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        39,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        40,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        41,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        42,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        43,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        44,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        45,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        46,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        47,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        48,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        49,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        50,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        51,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        52,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        53,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        54,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        55,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        56,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        57,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        58,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        59,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        60,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        61,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        62,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        63,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        64,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        65,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        66,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        67,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        68,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        69,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        70,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        71,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        72,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        73,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        74,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        75,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        76,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        77,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        78,
+        21
+      ],
+      "otype": "Wall"
+    },
+    {
+      "position": [
+        79,
+        21
+      ],
+      "otype": "Wall"
+    }
+  ]
+}

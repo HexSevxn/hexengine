@@ -1,5 +1,5 @@
 use crate::engine::render::{Triangle, color::TriangleColorMap};
-use glam::{Vec2, Vec4, vec2};
+use glam::{Vec2, vec2};
 
 pub fn get_rectangle_triangles(
     position: Vec2,
